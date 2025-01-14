@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot Interface</title>
+</head>
+<body>
+    <h1>Chat with the Bot</h1>
+    <form id="chat-form">
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="message">Your Message:</label>
+        <textarea id="message" name="message" required></textarea><br><br>
+        <button type="submit">Send</button>
+    </form>
+    <div id="chat-response"></div>
+
+    <script>
+        document.getElementById('chat-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const message = document.getElementById('message').value;
+
+            const responseDiv = document.getElementById('chat-response');
+            responseDiv.textContent = "Thinking...";
+
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ name, message })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                responseDiv.textContent = `Bot: ${result.response}`;
+            } else {
+                responseDiv.textContent = `Error: ${result.error}`;
+            }
+        });
+    </script>
+</body>
+</html>
