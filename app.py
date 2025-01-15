@@ -1,36 +1,42 @@
 from flask import Flask, render_template, request, jsonify
 from openai import OpenAI
+from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import os
 
 # Flask application
 app = Flask(__name__)
 
+# Configure the database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///chatbot.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+# Define the ChatLog model
+class ChatLog(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_name = db.Column(db.String(100), nullable=False)
+    user_input = db.Column(db.Text, nullable=False)
+    bot_response = db.Column(db.Text, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
 # Chatbot client setup
 client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
 
 # System instruction for the chatbot
-system_instruction = {"role": "system", "content": "Always answer as mentor."}
-
-# File to save chat logs
-CHAT_LOG_FILE = "C:/Users/ANTARA DAS/Desktop/chat_log.txt"
-
-# Ensure the directory exists
-chat_log_dir = os.path.dirname(CHAT_LOG_FILE)
-if chat_log_dir and not os.path.exists(chat_log_dir):
-    os.makedirs(chat_log_dir)
-
-# Function to save chat logs
-def save_chat_log(user, user_input, bot_response):
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    with open(CHAT_LOG_FILE, "a") as file:
-        file.write(f"[{timestamp}] {user}: {user_input}\n")
-        file.write(f"[{timestamp}] Bot: {bot_response}\n\n")
+system_instruction = {"role": "system", "content": "Always answer as a Mentor."}
 
 # Flask route for the chatbot interface
 @app.route("/")
 def index():
     return render_template("index.html")
+
+# Function to save chat logs to the database
+def save_chat_log(user, user_input, bot_response):
+    log = ChatLog(user_name=user, user_input=user_input, bot_response=bot_response)
+    db.session.add(log)
+    db.session.commit()
 
 # Flask route to handle chatbot interactions
 @app.route("/chat", methods=["POST"])
@@ -53,7 +59,7 @@ def chat():
         )
         bot_response = completion.choices[0].message.content
 
-        # Save the conversation to the log
+        # Save the conversation to the database
         save_chat_log(user_name, user_input, bot_response)
 
         return jsonify({"response": bot_response})
@@ -63,12 +69,8 @@ def chat():
 # Flask route to view chat logs
 @app.route("/logs")
 def view_logs():
-    try:
-        with open(CHAT_LOG_FILE, "r") as file:
-            logs = file.readlines()
-        return render_template("logs.html", logs=logs)
-    except FileNotFoundError:
-        return "No logs found.", 404
+    logs = ChatLog.query.order_by(ChatLog.timestamp.desc()).all()
+    return render_template("logs.html", logs=logs)
 
 # HTML templates
 INDEX_HTML = """
@@ -126,21 +128,43 @@ LOGS_HTML = """
 </head>
 <body>
     <h1>Chat Logs</h1>
-    <pre>
-    {% for log in logs %}
-    {{ log }}
-    {% endfor %}
-    </pre>
+    <table border="1">
+        <tr>
+            <th>Timestamp</th>
+            <th>User</th>
+            <th>User Input</th>
+            <th>Bot Response</th>
+        </tr>
+        {% for log in logs %}
+        <tr>
+            <td>{{ log.timestamp }}</td>
+            <td>{{ log.user_name }}</td>
+            <td>{{ log.user_input }}</td>
+            <td>{{ log.bot_response }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>
 """
 
-# Save the HTML templates
-with open("templates/index.html", "w") as f:
-    f.write(INDEX_HTML)
+# Save the templates
+def save_template(file_path, content):
+    # Ensure the directory exists
+    directory = os.path.dirname(file_path)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    
+    # Write content to the file
+    with open(file_path, "w") as file:
+        file.write(content)
 
-with open("templates/logs.html", "w") as f:
-    f.write(LOGS_HTML)
+# Save the HTML templates
+save_template("templates/index.html", INDEX_HTML)
+save_template("templates/logs.html", LOGS_HTML)
 
 if __name__ == "__main__":
+    # Create database tables within the application context
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)

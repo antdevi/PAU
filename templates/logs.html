@@ -6,10 +6,21 @@
 </head>
 <body>
     <h1>Chat Logs</h1>
-    <pre>
-    {% for log in logs %}
-    {{ log }}
-    {% endfor %}
-    </pre>
+    <table border="1">
+        <tr>
+            <th>Timestamp</th>
+            <th>User</th>
+            <th>User Input</th>
+            <th>Bot Response</th>
+        </tr>
+        {% for log in logs %}
+        <tr>
+            <td>{{ log.timestamp }}</td>
+            <td>{{ log.user_name }}</td>
+            <td>{{ log.user_input }}</td>
+            <td>{{ log.bot_response }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>
