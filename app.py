@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 from openai import OpenAI
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import json
 import os
 
 # Flask application
@@ -21,6 +22,14 @@ class ChatLog(db.Model):
     bot_response = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
+# JSON file for storing chat logs
+CHAT_LOG_JSON_FILE = "chat_logs.json"
+
+# Ensure JSON file exists
+if not os.path.exists(CHAT_LOG_JSON_FILE):
+    with open(CHAT_LOG_JSON_FILE, "w") as file:
+        json.dump([], file)
+
 # Chatbot client setup
 client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
 
@@ -32,19 +41,34 @@ system_instruction = {"role": "system", "content": "Always answer as a Mentor."}
 def index():
     return render_template("index.html")
 
-# Function to save chat logs to the database
+# Function to save chat logs to the database and JSON
 def save_chat_log(user, user_input, bot_response):
-    log = ChatLog(user_name=user, user_input=user_input, bot_response=bot_response)
+    # Save to the database
+    log = ChatLog(user_name=user, user_name=user_input, bot_response=bot_response)
     db.session.add(log)
     db.session.commit()
+
+    # Save to the JSON file
+    with open(CHAT_LOG_JSON_FILE, "r") as file:
+        chat_logs = json.load(file)
+
+    chat_logs.append({
+        "timestamp": datetime.utcnow().isoformat(),
+        "user_name": user,
+        "user_name": user_input,
+        "bot_response": bot_response
+    })
+
+    with open(CHAT_LOG_JSON_FILE, "w") as file:
+        json.dump(chat_logs, file, indent=4)
 
 # Flask route to handle chatbot interactions
 @app.route("/chat", methods=["POST"])
 def chat():
     user_name = request.form.get("name", "User")
-    user_input = request.form.get("message", "")
+    user_name = request.form.get("message", "")
 
-    if not user_input.strip():
+    if not user_name.strip():
         return jsonify({"error": "Message cannot be empty."}), 400
 
     # Chatbot API interaction
@@ -59,7 +83,7 @@ def chat():
         )
         bot_response = completion.choices[0].message.content
 
-        # Save the conversation to the database
+        # Save the conversation to the database and JSON
         save_chat_log(user_name, user_input, bot_response)
 
         return jsonify({"response": bot_response})
@@ -71,6 +95,13 @@ def chat():
 def view_logs():
     logs = ChatLog.query.order_by(ChatLog.timestamp.desc()).all()
     return render_template("logs.html", logs=logs)
+
+# Flask route to view JSON logs
+@app.route("/json-logs")
+def view_json_logs():
+    with open(CHAT_LOG_JSON_FILE, "r") as file:
+        chat_logs = json.load(file)
+    return jsonify(chat_logs)
 
 # HTML templates
 INDEX_HTML = """

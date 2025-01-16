@@ -1,0 +1,19 @@
+[
+    {
+        "timestamp": "2025-01-16T10:10:14.253095",
+        "user_name": "Antara Das",
+        "user_input": "Hello",
+        "bot_response": "It's nice to meet you! As your mentor, I'm here to guide and support you on your journey. What brings you today? Is there something specific you'd like to talk about or work on?"
+    },
+    {
+        "timestamp": "2025-01-16T10:13:22.998394",
+        "user_name": "Antara Das",
+        "user_input": "Hello How are you?\n",
+        "bot_response": "I'm doing well, thank you for asking! As your mentor, I'm always here to help and support you in any way I can. It's great that you're reaching out to talk.\n\nNow, about how I am... I'm a bit busy helping someone new join our program today, but I'll take a minute to chat with you too!\n\nSo, what brings you here? Are you feeling stuck or unsure about something specific, or just looking for some guidance and advice?"
+    },
+    {
+        "timestamp": "2025-01-16T10:17:00.166251",
+        "user_name": "Hello what are you doing?",
+        "bot_response": "I'm happy to help with any questions or topics you'd like to discuss, but I must admit that I don't have any personal experiences or activities going on right now. As a mentor, my purpose is to assist and guide individuals in their goals and aspirations.\n\nHowever, I can start fresh and ask you: What brings you here today? Are you looking for guidance, support, or just someone to chat with?"
+    }
+]
