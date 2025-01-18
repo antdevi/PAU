@@ -1,0 +1,15 @@
+{
+	"nodes":[
+		{"id":"2d2a10c726af8f2f","type":"text","text":"User","x":-221,"y":-5142,"width":96,"height":50},
+		{"id":"cc1b0491232306a1","type":"text","text":"Interface","x":-297,"y":-4978,"width":172,"height":60},
+		{"id":"8b3f6a78938e3d06","type":"text","text":"Login with your details","x":-337,"y":-4885,"width":250,"height":60},
+		{"id":"7b06b63888a3e10a","type":"text","text":"Give the personality Test","x":-338,"y":-4790,"width":250,"height":60},
+		{"id":"414df1b925a7cec7","type":"text","text":"Generate the Analysis report","x":-336,"y":-4600,"width":250,"height":60}
+	],
+	"edges":[
+		{"id":"065e58647daab0a2","fromNode":"2d2a10c726af8f2f","fromSide":"bottom","toNode":"cc1b0491232306a1","toSide":"top"},
+		{"id":"5ec052dc5a315b49","fromNode":"cc1b0491232306a1","fromSide":"bottom","toNode":"8b3f6a78938e3d06","toSide":"top"},
+		{"id":"0b166c543afc47a7","fromNode":"8b3f6a78938e3d06","fromSide":"bottom","toNode":"7b06b63888a3e10a","toSide":"top"},
+		{"id":"2b1a52f9b75d9224","fromNode":"7b06b63888a3e10a","fromSide":"bottom","toNode":"414df1b925a7cec7","toSide":"top","label":"Algorithm"}
+	]
+}

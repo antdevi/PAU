@@ -44,7 +44,7 @@ def index():
 # Function to save chat logs to the database and JSON
 def save_chat_log(user, user_input, bot_response):
     # Save to the database
-    log = ChatLog(user_name=user, user_name=user_input, bot_response=bot_response)
+    log = ChatLog(user_name=user, user_input=user_input, bot_response=bot_response)
     db.session.add(log)
     db.session.commit()
 
@@ -55,7 +55,7 @@ def save_chat_log(user, user_input, bot_response):
     chat_logs.append({
         "timestamp": datetime.utcnow().isoformat(),
         "user_name": user,
-        "user_name": user_input,
+        "user_input": user_input,
         "bot_response": bot_response
     })
 
@@ -66,9 +66,9 @@ def save_chat_log(user, user_input, bot_response):
 @app.route("/chat", methods=["POST"])
 def chat():
     user_name = request.form.get("name", "User")
-    user_name = request.form.get("message", "")
+    user_input = request.form.get("message", "")
 
-    if not user_name.strip():
+    if not user_input.strip():
         return jsonify({"error": "Message cannot be empty."}), 400
 
     # Chatbot API interaction
