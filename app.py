@@ -49,29 +49,6 @@ def login():
             return render_template('login.html', error="Invalid username or password.")
 
     return render_template('login.html')
-#Route: Signup Page
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
-    if request.method == 'POST':
-        name = request.form['name']
-        email = request.form['email']
-        dob = request.form['dob']
-        secret_question = request.form['secret_question']
-        secret_answer = request.form['secret_answer']
-        
-        # Check if the user already exists
-        existing_user = User.query.filter_by(email=email).first()
-        if existing_user:
-            return render_template('signup.html', error="Email already registered!")
-
-        # Create new user (storing only name, email, and security question for now)
-        new_user = User(username=name, password=secret_answer)  # Replace password logic later!
-        db.session.add(new_user)
-        db.session.commit()
-
-        return redirect(url_for('login'))  # Redirect to login after signup
-
-    return render_template('signup.html')
 
 # Route: Forgot Password Page
 @app.route('/forgetpassword', methods=['GET', 'POST'])

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - PAU</title>
+    <link rel="stylesheet" href="/static/signup.css">
+</head>
+<body>
+    <div class="signup-container">
+        <h1>Create Your Account</h1>
+        <form action="/signup" method="POST">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="date" name="dob" required>
+            <select name="secret_question" required>
+                <option value="" disabled selected>Select a Secret Question</option>
+                <option value="pet">What is the name of your first pet?</option>
+                <option value="school">What is the name of your primary school?</option>
+                <option value="city">In which city were you born?</option>
+            </select>
+            <input type="text" name="secret_answer" placeholder="Answer" required>
+            <button type="submit">Create Account</button>
+        </form>
+    </div>
+</body>
+</html>

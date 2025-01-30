@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with PAU</title>
+    <link rel="stylesheet" href="/static/chat.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Top Taskbar -->
+        <div class="taskbar">
+            <div class="profile">Profile <button class="logout-button" onclick="logout()">Logout</button></div>
+            <div class="progress-container full-width">
+                <div class="progress-box expanded-box">
+                    <div class="progress-fill slow-fill" style="width: 5%; height: 15px;"></div>
+                    <span class="progress-text">5%</span>
+                </div>
+                <div class="sync-text">Sync with the bot</div>
+            </div>
+        </div>
+        
+        <!-- Main Section -->
+        <div class="main-content">
+            <!-- Chat Section -->
+            <div class="chat-section">
+                <h2>Chat with PAU</h2>
+                <div class="chat-box" id="chat-box"></div>
+                <div class="message-input">
+                    <input type="text" id="message" placeholder="Write your message">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+            
+            <!-- Side Panel -->
+            <div class="side-panel">
+                <div class="tabs">
+                    <button class="tab-button" onclick="showTab('progress')">Progress</button>
+                    <button class="tab-button" onclick="showTab('notes')">Notes</button>
+                    <button class="tab-button" onclick="showTab('playground')">Playground</button>
+                </div>
+                <div class="tab-content" id="progress" contenteditable="true">Edit your progress here...</div>
+                <div class="tab-content" id="notes" contenteditable="true" style="display:none;">Write your notes here...</div>
+                <div class="tab-content" id="playground" contenteditable="true" style="display:none;">Playground: Experiment here...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
+            document.getElementById(tabId).style.display = 'block';
+        }
+
+        async function sendMessage() {
+            let messageInput = document.getElementById("message");
+            let messageText = messageInput.value.trim();
+
+            if (messageText === "") return; // Prevent empty messages
+            
+            let chatBox = document.getElementById("chat-box");
+
+            // Add user message
+            let userMessage = document.createElement("div");
+            userMessage.className = "user-message";
+            userMessage.textContent = messageText;
+            chatBox.appendChild(userMessage);
+
+            messageInput.value = ""; // Clear input field
+
+            try {
+                let response = await fetch("http://localhost:1234/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer lm-studio"
+                    },
+                    body: JSON.stringify({
+                        model: "model-identifier", 
+                        messages: [
+                            { "role": "system", "content": "You are a helpful assistant." },
+                            { "role": "user", "content": messageText }
+                        ],
+                        temperature: 0.7
+                    })
+                });
+
+                let data = await response.json();
+                let botMessage = document.createElement("div");
+                botMessage.className = "bot-message";
+                botMessage.textContent = "PAU: " + data.choices[0].message.content;
+                chatBox.appendChild(botMessage);
+                chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to bottom
+                updateProgress();
+            } catch (error) {
+                console.error("Error connecting to LLM Studio:", error);
+                let errorMessage = document.createElement("div");
+                errorMessage.className = "bot-message";
+                errorMessage.textContent = "Error: Unable to connect to LLM Studio.";
+                chatBox.appendChild(errorMessage);
+            }
+        }
+
+        function updateProgress() {
+            let progressFill = document.querySelector(".progress-fill");
+            let progressText = document.querySelector(".progress-text");
+            let currentWidth = parseInt(progressFill.style.width);
+            if (currentWidth < 100) {
+                let newWidth = currentWidth + 5;
+                progressFill.style.width = newWidth + "%";
+                progressText.textContent = newWidth + "%";
+            }
+        }
+
+        function logout() {
+            window.location.href = "/logout";
+        }
+    </script>
+</body>
+</html>

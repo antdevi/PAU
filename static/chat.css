@@ -1,0 +1,135 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.taskbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #222;
+}
+
+.profile {
+    background: #444;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logout-button {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.progress-box {
+    width: 900px;
+    background: black;
+    border: 2px solid white;
+    padding: 5px;
+    position: relative;
+}
+
+.progress-fill {
+    height: 10px;
+    width: 30%; /* Dynamic */
+    background: #00ff00;
+}
+
+.progress-text {
+    position: absolute;
+    right: 10px;
+    top: 2px;
+    color: white;
+}
+
+.sync-text {
+    margin-top: 5px;
+    color: white;
+    font-size: 12px;
+}
+
+.main-content {
+    display: flex;
+    flex: 1;
+}
+
+.chat-section {
+    flex: 2;
+    padding: 20px;
+}
+
+.chat-box {
+    background: #333;
+    height: 60vh;
+    border-radius: 10px;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.message-input {
+    display: flex;
+    margin-top: 10px;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    background: black;
+    color: white;
+    border: 1px solid white;
+}
+
+button {
+    padding: 10px;
+    background: white;
+    color: black;
+    cursor: pointer;
+}
+
+.side-panel {
+    flex: 1;
+    background: #222;
+    padding: 20px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tab-button {
+    background: #444;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.tab-content {
+    margin-top: 10px;
+    padding: 10px;
+    background: #333;
+    border-radius: 10px;
+}
