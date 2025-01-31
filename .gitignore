@@ -1,2 +1,3 @@
-# Ignore system files
-.obsidian
+/.obsidian
+File Structure.md
+*.js
