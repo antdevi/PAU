@@ -82,7 +82,7 @@ body {
 
 .chat-box {
     background: #333;
-    height: 60vh;
+    height: 80vh;
     border-radius: 10px;
     padding: 10px;
     overflow-y: auto;
@@ -90,24 +90,36 @@ body {
 
 .message-input {
     display: flex;
+    align-items: center;
     margin-top: 10px;
+    padding: 10px;
+    gap: 10px;
 }
 
-input {
+.message-input input {
     flex: 1;
     padding: 10px;
     background: black;
     color: white;
     border: 1px solid white;
+    height: 20px;
 }
-
-button {
-    padding: 10px;
+.message-input button {
+    padding: 10px 15px;
     background: white;
     color: black;
     cursor: pointer;
+    height: 40px;
+    border-radius: 5px;
 }
-
+button {
+    padding: 10px 15px;
+    background: white;
+    color: black;
+    cursor: pointer;
+    height: 40px;
+    border-radius: 5px;
+}
 .side-panel {
     flex: 1;
     background: #222;
@@ -158,7 +170,7 @@ textarea, input {
     align-items: center;
     gap: 10px;
     padding: 8px;
-    background: #f4f4f4;
+    background: #222;
     margin: 5px 0;
     border-radius: 5px;
 }
@@ -174,7 +186,7 @@ textarea, input {
 
 .delete-selected-button {
     background-color: #e74c3c;
-    color: white;
+    color: black;
     border: none;
     padding: 10px 15px;
     margin-top: 10px;
@@ -185,4 +197,77 @@ textarea, input {
 
 .delete-selected-button:hover {
     background-color: #c0392b;
+}
+#playground {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: flex-start; /* Align buttons to the left */
+    padding: 10px;
+}
+
+#playground .tab-button {
+    display: block; /* Ensures buttons take full width */
+    width: 100%; /* Optional: Makes them uniform in width */
+    padding: 12px;
+    background: #444;
+    color: white;
+    border: 2px solid white; /* Adds a visible border */
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 40px; /* Ensures space between buttons */
+}
+
+/* Ensure last button does not have extra margin */
+#playground .tab-button:last-child {
+    margin-top: 20px;
+}
+#quiz-container {
+    background: #222;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    width: 80%;
+}
+
+#options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option-button {
+    background: #444;
+    color: white;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.option-button:hover {
+    background: #666;
+}
+
+#explanation-box {
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+    padding: 5px;
+    background: black;
+    color: white;
+    border: 1px solid white;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+    background: white;
+    color: black;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
 }

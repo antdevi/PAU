@@ -1,26 +1,26 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
-from openai import OpenAI
+import openai
 from flask_sqlalchemy import SQLAlchemy
-import os
+import json
 from datetime import datetime
 
-# Flask application
+# Flask application setup
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # Secret key for session management
 
-# Configure the database
+# Configure database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///chatbot.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-# Define the User model
+# Define User model
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
 
-# Define the ChatLog model
+# Define ChatLog model
 class ChatLog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_name = db.Column(db.String(100), nullable=False)
@@ -28,11 +28,18 @@ class ChatLog(db.Model):
     bot_response = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
-# Chatbot client setup
-client = OpenAI(base_url="http://localhost:1234/v1", api_key="lm-studio")
+# Define AnswerLog model (for saving quiz answers)
+class AnswerLog(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_name = db.Column(db.String(100), nullable=False)
+    question = db.Column(db.String(500), nullable=False)
+    selected_option = db.Column(db.String(100), nullable=False)
+    explanation = db.Column(db.Text, nullable=True)
+    is_correct = db.Column(db.Boolean, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
-# System instruction for the chatbot
-system_instruction = {"role": "system", "content": "Always answer as a Mentor."}
+# OpenAI API setup
+openai.api_key = 'your-api-key-here'
 
 # Route: Login Page
 @app.route('/', methods=['GET', 'POST'])
@@ -44,6 +51,7 @@ def login():
         user = User.query.filter_by(username=username, password=password).first()
         if user:
             session['username'] = username
+            session['answered_questions'] = []  # Initialize answered questions list
             return redirect(url_for('chat'))
         else:
             return render_template('login.html', error="Invalid username or password.")
@@ -60,50 +68,74 @@ def forget_password():
 def chat():
     if 'username' not in session:
         return redirect(url_for('login'))
-    
     return render_template("chat.html", username=session['username'])
 
-# New API Route: Handle Chat Requests Asynchronously
-@app.route('/get_response', methods=['POST'])
-def get_response():
+# New API Route: Get a Random Question
+@app.route('/get_question', methods=['GET'])
+def get_question():
+    if 'username' not in session:
+        return jsonify({"error": "Unauthorized"}), 401
+    
+    # Initialize answered questions in session if not already present
+    if 'answered_questions' not in session:
+        session['answered_questions'] = []
+    
+    # Load questions from JSON file
+    try:
+        with open('static/python_quiz_questions.json', 'r') as f:
+            all_questions = json.load(f)
+    except Exception as e:
+        return jsonify({"error": "Failed to load questions."}), 500
+
+    # Filter out answered questions
+    unanswered_questions = [q for q in all_questions if q['question'] not in session['answered_questions']]
+
+    if not unanswered_questions:
+        return jsonify({"message": "No unanswered questions remaining!"}), 200
+
+    # Select a random question from the unanswered pool
+    question_data = unanswered_questions[0]  # You can randomize further if needed
+
+    return jsonify({
+        "question": question_data['question'],
+        "options": question_data['options']
+    })
+
+# API Route to save the answer
+@app.route('/save_answer', methods=['POST'])
+def save_answer():
     if 'username' not in session:
         return jsonify({"error": "Unauthorized"}), 401
 
     data = request.get_json()
-    user_input = data.get("message", "").strip()
-
-    if not user_input:
-        return jsonify({"error": "Message cannot be empty."}), 400
-
-    # Chatbot API interaction
+    
     try:
-        completion = client.chat.completions.create(
-            model="model-identifier",
-            messages=[
-                system_instruction,
-                {"role": "user", "content": user_input}
-            ],
-            temperature=0.7,
-        )
-        bot_response = completion.choices[0].message.content
+        question = data['question']
+        selected_option = data['selectedOption']
+        is_correct = data['isCorrect']
+        explanation = data['explanation']
 
-        # Save chat log
-        save_chat_log(session['username'], user_input, bot_response)
+        # Save the answer to the database
+        save_answer_to_db(session['username'], question, selected_option, explanation, is_correct)
 
-        return jsonify({"response": bot_response})
+        # Mark the question as answered
+        if question not in session['answered_questions']:
+            session['answered_questions'].append(question)
+
+        return jsonify({"message": "Answer saved successfully!"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# Route: Logout
-@app.route('/logout')
-def logout():
-    session.pop('username', None)
-    return redirect(url_for('login'))
-
-# Function to save chat logs to the database
-def save_chat_log(user, user_input, bot_response):
-    log = ChatLog(user_name=user, user_input=user_input, bot_response=bot_response)
-    db.session.add(log)
+# Function to save answers to the database
+def save_answer_to_db(user_name, question, selected_option, explanation, is_correct):
+    answer = AnswerLog(
+        user_name=user_name,
+        question=question,
+        selected_option=selected_option,
+        explanation=explanation,
+        is_correct=is_correct
+    )
+    db.session.add(answer)
     db.session.commit()
 
 # Route: View Logs
@@ -114,6 +146,13 @@ def view_logs():
 
     logs = ChatLog.query.order_by(ChatLog.timestamp.desc()).all()
     return render_template("logs.html", logs=logs)
+
+# Route: Logout
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    session.pop('answered_questions', None)  # Clear answered questions session
+    return redirect(url_for('login'))
 
 if __name__ == "__main__":
     # Create database tables within the application context

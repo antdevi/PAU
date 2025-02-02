@@ -1,0 +1,32 @@
+[
+    {
+        "question": "Which of the following functions can help us to find the version of python that we are currently working on?",
+        "options": [
+            "a) sys.version(1)",
+            "b) sys.version(0)",
+            "c) sys.version()",
+            "d) sys.version"
+        ],
+        "answer": "d) sys.version"
+    },
+    {
+        "question": "Python supports the creation of anonymous functions at runtime, using a construct called __________",
+        "options": [
+            "a) pi",
+            "b) anonymous",
+            "c) lambda",
+            "d) none of the mentioned"
+        ],
+        "answer": "c) lambda"
+    },
+    {
+        "question": "What is the order of precedence in python?",
+        "options": [
+            "a) Exponential, Parentheses, Multiplication, Division, Addition, Subtraction",
+            "b) Exponential, Parentheses, Division, Multiplication, Addition, Subtraction",
+            "c) Parentheses, Exponential, Multiplication, Addition, Division, Subtraction",
+            "d) Parentheses, Exponential, Multiplication, Division, Addition, Subtraction"
+        ],
+        "answer": "d) Parentheses, Exponential, Multiplication, Division, Addition, Subtraction"
+    }
+]
