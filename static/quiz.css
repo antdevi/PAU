@@ -1,0 +1,88 @@
+/* Set the background color to black and text color to white */
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+#subjective-answer{
+    background-color: white;
+    width: 280px;
+    height: 45px;
+    gap: 10px;
+    margin-top: 20px;  /* Adjust this value to create more or less space */
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    align-items: center;
+}
+/* Style the question panel */
+#question-panel {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    width: 300px;
+    margin: 0 auto;
+}
+
+/* Style the question text */
+#question-text {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+/* Style the options, making them stack vertically */
+#options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Style each option button */
+#options button {
+    background-color: #444;
+    color: white;
+    border: 1px solid #555;
+    padding: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: left;
+    width: 100%;
+}
+
+#options button.selected {
+    background-color: #333;
+}
+
+#options button.correct {
+    background-color: #28a745;
+}
+
+#options button.incorrect {
+    background-color: #dc3545;
+}
+
+#options button:hover {
+    background-color: #555;
+}
+button{
+    border: 1px solid #555;
+    padding: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: left;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    margin-top: 10px;
+    gap:10px
+}
+#score-container{
+    width: 100px;
+    padding: 10px;
+    margin-top: 10px;
+
+}

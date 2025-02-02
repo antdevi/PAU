@@ -3,6 +3,7 @@ import openai
 from flask_sqlalchemy import SQLAlchemy
 import json
 from datetime import datetime
+import traceback
 
 # Flask application setup
 app = Flask(__name__)
@@ -69,74 +70,6 @@ def chat():
     if 'username' not in session:
         return redirect(url_for('login'))
     return render_template("chat.html", username=session['username'])
-
-# New API Route: Get a Random Question
-@app.route('/get_question', methods=['GET'])
-def get_question():
-    if 'username' not in session:
-        return jsonify({"error": "Unauthorized"}), 401
-    
-    # Initialize answered questions in session if not already present
-    if 'answered_questions' not in session:
-        session['answered_questions'] = []
-    
-    # Load questions from JSON file
-    try:
-        with open('static/python_quiz_questions.json', 'r') as f:
-            all_questions = json.load(f)
-    except Exception as e:
-        return jsonify({"error": "Failed to load questions."}), 500
-
-    # Filter out answered questions
-    unanswered_questions = [q for q in all_questions if q['question'] not in session['answered_questions']]
-
-    if not unanswered_questions:
-        return jsonify({"message": "No unanswered questions remaining!"}), 200
-
-    # Select a random question from the unanswered pool
-    question_data = unanswered_questions[0]  # You can randomize further if needed
-
-    return jsonify({
-        "question": question_data['question'],
-        "options": question_data['options']
-    })
-
-# API Route to save the answer
-@app.route('/save_answer', methods=['POST'])
-def save_answer():
-    if 'username' not in session:
-        return jsonify({"error": "Unauthorized"}), 401
-
-    data = request.get_json()
-    
-    try:
-        question = data['question']
-        selected_option = data['selectedOption']
-        is_correct = data['isCorrect']
-        explanation = data['explanation']
-
-        # Save the answer to the database
-        save_answer_to_db(session['username'], question, selected_option, explanation, is_correct)
-
-        # Mark the question as answered
-        if question not in session['answered_questions']:
-            session['answered_questions'].append(question)
-
-        return jsonify({"message": "Answer saved successfully!"}), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-# Function to save answers to the database
-def save_answer_to_db(user_name, question, selected_option, explanation, is_correct):
-    answer = AnswerLog(
-        user_name=user_name,
-        question=question,
-        selected_option=selected_option,
-        explanation=explanation,
-        is_correct=is_correct
-    )
-    db.session.add(answer)
-    db.session.commit()
 
 # Route: View Logs
 @app.route("/logs")

@@ -126,52 +126,6 @@ async function sendMessage() {
         chatBox.appendChild(errorMessage);
     }
 }
-
-let currentQuestionIndex = 0;
-let incorrectQuestions = [];
-let allQuestions = []; // This will hold the questions from your JSON file.
-let answeredQuestions = []; // To track answered questions
-
-// Function to load questions from the backend (JSON file)
-async function loadQuestions() {
-    try {
-        const response = await fetch('/get_question'); // Fetch the question from the server
-        const data = await response.json();
-
-        if (data.error) {
-            alert(data.error); // Display any error message from the backend
-            return;
-        }
-
-        // Display the question and options
-        document.getElementById("question-text").innerText = data.question;
-        let optionsContainer = document.getElementById("options-container");
-        optionsContainer.innerHTML = ""; // Clear previous options
-
-        data.options.forEach(option => {
-            let button = document.createElement("button");
-            button.innerText = option;
-            button.classList.add("option-button");
-            button.onclick = () => selectOption(option, data); // When an option is selected
-            optionsContainer.appendChild(button);
-        });
-    } catch (error) {
-        console.error('Error loading question:', error);
-    }
-}
-// Submit the answer's explanation (if any)
-function submitPythonAnswer() {
-    let explanation = document.getElementById("explanation-box").value.trim();
-    if (explanation === "") {
-        alert("Please provide an explanation before submitting.");
-        return;
-    }
-    alert("Your answer has been submitted.");
-}
-
-// Initialize and load questions
-document.addEventListener("DOMContentLoaded", loadQuestions);
-
 // Logout function
 function logout() {
     window.location.href = "/logout";

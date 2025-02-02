@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Application</title>
+    <link rel="stylesheet" href="/static/quiz.css">
+</head>
+<body>
+    <div id="score-container">
+        <button id="score-button">Score: 0</button>
+    </div>
+    <div id="question-panel">
+        <h2 id="question-text"></h2>
+        <div id="options"></div>
+        <textarea id="subjective-answer" placeholder="Explain your answer..."></textarea><br><br>
+        <button onclick="submitAnswer()">Submit Answer</button>
+    </div>
+
+    <script src="/static/quiz.js"></script>
+</body>
+</html>
