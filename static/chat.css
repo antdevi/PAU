@@ -82,7 +82,7 @@ body {
 
 .chat-box {
     background: #333;
-    height: 80vh;
+    height: 60vh;
     border-radius: 10px;
     padding: 10px;
     overflow-y: auto;

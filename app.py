@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 import json
 from datetime import datetime
 import traceback
+import subprocess
+import os 
 
 # Flask application setup
 app = Flask(__name__)
@@ -86,6 +88,21 @@ def logout():
     session.pop('username', None)
     session.pop('answered_questions', None)  # Clear answered questions session
     return redirect(url_for('login'))
+
+quiz_process = subprocess.Popen(["python", "quiz.py"])
+
+@app.route("/quiz")
+def quiz_redirect():
+    return "Redirecting to Quiz App", 302, {"Location": "http://127.0.0.1:5001/"}
+
+if __name__ == "__main__":
+    try:
+        print("Starting PAU App...")
+        app.run(debug=True, port=5000)  # Run PAU on port 5000
+    finally:
+        print("Stopping Quiz App...")
+        quiz_process.terminate()
+        
 
 if __name__ == "__main__":
     # Create database tables within the application context

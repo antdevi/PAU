@@ -1,6 +1,6 @@
 let currentQuestion = null;
 let selectedOption = null;
-let score = 0;
+let score = 0; // Track the score
 
 // Fetch a random question from the server
 function fetchQuestion() {
@@ -20,7 +20,6 @@ function displayQuestion(question) {
     const optionsContainer = document.getElementById('options');
     optionsContainer.innerHTML = '';  // Clear previous options
 
-    // Loop through the options and create buttons
     question.options.forEach((option, index) => {
         const optionElem = document.createElement('button');
         optionElem.innerText = option;
@@ -72,8 +71,9 @@ function submitAnswer() {
 
     // Validate that the correct answer is selected
     if (selectedOption !== currentQuestion.correct_answer) {
-        alert("Please select the correct answer.");
-        return;
+        alert("Incorrect Option");
+        score -= 5;
+        if (score < 0) score = 0;
     }
 
     // Validate that the subjective answer box is filled
@@ -82,12 +82,16 @@ function submitAnswer() {
         return;
     }
 
+    // Get the current timestamp
+    const timestamp = new Date().toISOString(); // Automatically get the current timestamp in ISO format
+
     // Prepare the answer data
     const answerData = {
         question: currentQuestion.text,
         selected_option: selectedOption,
         subjective_answer: subjectiveAnswer,
-        score: 0 // Initialize score for this question
+        score: 0, // Initialize score for this question
+        timestamp: timestamp // Add the timestamp
     };
 
     // If the answer is correct, award 10 marks
@@ -122,4 +126,7 @@ function submitAnswer() {
     })
     .catch(error => console.error('Error submitting answer:', error));
 }
-fetchQuestion()
+
+// Initial call to fetch the first question
+fetchQuestion();
+ 

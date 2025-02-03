@@ -130,3 +130,7 @@ async function sendMessage() {
 function logout() {
     window.location.href = "/logout";
 }
+function redirectToQuiz() {
+    // Redirect the user to the quiz page
+    window.location.href = "http://127.0.0.1:5001/";  // Adjust this URL as needed
+}

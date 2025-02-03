@@ -3,12 +3,13 @@ import random
 import json
 from datetime import datetime
 import os
-
 app = Flask(__name__)
 
-data_folder = 'quiz'  
-file_path = os.path.join(data_folder, 'scores.json')
+# Define the folder where you want to store the JSON file (e.g., "data" folder)
+data_folder = 'data'  # You can change this to any folder you prefer
+file_path = os.path.join(data_folder, 'scores.json')  # Path to the JSON file
 
+# Make sure the directory exists, otherwise create it
 if not os.path.exists(data_folder):
     os.makedirs(data_folder)
 
@@ -20,12 +21,11 @@ def load_questions():
 
 # Store answers and scores with timestamp
 def store_score(answer_data):
-    # Get the current date and time for the timestamp
-    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    answer_data['timestamp'] = timestamp
+    # Get the current date and time for the timestamp (if needed in backend)
+    timestamp = answer_data.get('timestamp', None)
     
-    # Save the score data to scores.json file
-    with open('scores.json', 'a') as file:
+    # Save the score data to scores.json file in the desired folder
+    with open(file_path, 'a') as file:
         json.dump(answer_data, file)
         file.write('\n')  # Separate entries with new lines
 
@@ -42,14 +42,8 @@ def get_random_question():
 @app.route('/submit_answer', methods=['POST'])
 def submit_answer():
     data = request.json
-    
-    # Log the received data for debugging
-    print("Received Data: ", data)
-    
-    # Store the score along with the timestamp
-    store_score(data)
-    
+    store_score(data)  # Store the user's answer and score along with timestamp
     return jsonify({'status': 'success'})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
