@@ -15,7 +15,9 @@ if not os.path.exists(data_folder):
 
 # Load questions from a JSON file
 def load_questions():
-    with open('python_quiz.json', 'r') as file:
+    file_path = os.path.join(os.path.dirname(__file__), 'data', 'python_quiz.json')
+
+    with open(file_path, 'r') as file:
         questions = json.load(file)
     return questions
 
@@ -46,4 +48,4 @@ def submit_answer():
     return jsonify({'status': 'success'})
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    app.run(debug=True, host="127.0.0.1", port=5001)

@@ -89,8 +89,7 @@ def logout():
     session.pop('answered_questions', None)  # Clear answered questions session
     return redirect(url_for('login'))
 
-quiz_process = subprocess.Popen(["python", "quiz.py"])
-
+quiz_process = subprocess.Popen(["python", "quiz.py"], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 @app.route("/quiz")
 def quiz_redirect():
     return "Redirecting to Quiz App", 302, {"Location": "http://127.0.0.1:5001/"}

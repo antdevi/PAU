@@ -112,14 +112,7 @@ body {
     height: 40px;
     border-radius: 5px;
 }
-button {
-    padding: 10px 15px;
-    background: white;
-    color: black;
-    cursor: pointer;
-    height: 40px;
-    border-radius: 5px;
-}
+
 .side-panel {
     flex: 1;
     background: #222;
@@ -184,20 +177,29 @@ textarea, input {
     font-size: 16px;
 }
 
+/* 🔹 Updated Notes Section Buttons */
+.note-button,
 .delete-selected-button {
-    background-color: #e74c3c;
-    color: black;
-    border: none;
     padding: 10px 15px;
-    margin-top: 10px;
+    background: black;
+    color: white;
     cursor: pointer;
-    font-size: 16px;
+    height: 40px;
     border-radius: 5px;
+    border: 1px solid white; /* Ensure visibility */
+    font-size: 16px;
+    text-align: center;
 }
 
-.delete-selected-button:hover {
-    background-color: #c0392b;
+.delete-selected-button {
+    background: black;
 }
+
+.note-button:hover,
+.delete-selected-button:hover {
+    background: #222;
+}
+
 #playground {
     display: flex;
     flex-direction: column; /* Stack buttons vertically */
@@ -223,6 +225,7 @@ textarea, input {
 #playground .tab-button:last-child {
     margin-top: 20px;
 }
+
 #quiz-container {
     background: #222;
     color: white;
@@ -270,4 +273,15 @@ button {
     cursor: pointer;
     border: none;
     border-radius: 5px;
+}
+
+/* 🔹 Ensure ALL Buttons in Notes Section Have Black Background */
+.notes-section button {
+    background: black !important;
+    color: white !important;
+    border: 1px solid white;
+}
+
+.notes-section button:hover {
+    background: #222 !important;
 }

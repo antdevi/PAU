@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat with PAU</title>
-    <link rel="stylesheet" href="/static/chat.css">
-    <script defer src="/static/chat.js"></script>
+    <link rel="stylesheet" href="/static/CSS/chat.css">
+    <script defer src="/static/JS/chat.js"></script>
 </head>
 <body>
     <div class="container">
@@ -48,6 +48,7 @@
                         <input type="text" id="search-notes" placeholder="Search notes..." oninput="searchNotes()">
                         <div id="saved-notes"></div>
                         <button onclick="deleteSelectedNotes()">Delete Selected Notes</button>
+                        <button onclick="openselectedNotes()">Open Selected Notes</button>
                     </div>
                 </div>
                 <div class="tab-content" id="playground" style="display:none;">
@@ -55,7 +56,7 @@
                         <button class="tab-button" onclick="showTab('PersonalityQuestion')">Personality Question</button>
                     </div>
                     <div>
-                        <button class="tab-button" onclick="redirectToQuiz()">Quiz</button>
+                        <button class="tab-button" onclick="redirectToQuiz()">Revision</button>
                         </div>
                     </div>
                 </div>
