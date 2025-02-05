@@ -133,3 +133,39 @@ function logout() {
 function redirectToQuiz() {
     window.location.href = "http://127.0.0.1:5001/";
 }
+function openSelectedNotes() {
+    let selectedNotes = [];
+    let checkboxes = document.querySelectorAll(".note-checkbox:checked");
+
+    checkboxes.forEach(cb => {
+        let noteText = cb.nextElementSibling.textContent;
+        selectedNotes.push(noteText);
+    });
+
+    let selectedNotesContainer = document.getElementById("selected-notes-display");
+    selectedNotesContainer.innerHTML = "";
+
+    if (selectedNotes.length === 0) {
+        selectedNotesContainer.innerHTML = "<p>No notes selected.</p>";
+        return;
+    }
+
+    selectedNotes.forEach(note => {
+        let noteItem = document.createElement("div");
+        noteItem.classList.add("note-item");
+        noteItem.textContent = note;
+        selectedNotesContainer.appendChild(noteItem);
+    });
+
+    // Add a close button
+    let closeButton = document.createElement("button");
+    closeButton.textContent = "Close";
+    closeButton.classList.add("close-notes-button");
+    closeButton.onclick = closeSelectedNotes;
+    selectedNotesContainer.appendChild(closeButton);
+}
+
+function closeSelectedNotes() {
+    let selectedNotesContainer = document.getElementById("selected-notes-display");
+    selectedNotesContainer.innerHTML = ""; // Clears the displayed notes
+}

@@ -42,13 +42,23 @@
                 </div>
                 <div class="tab-content" id="progress">Progress Section</div>
                 <div class="tab-content" id="notes" style="display:none;">
-                    <textarea id="noteInput" rows="6" columns="10" placeholder="Write your note here..."></textarea>
-                    <button onclick="saveNote()">Save Note</button>
+                    <textarea id="noteInput" placeholder="Write your note here..."></textarea>
+                    
+                    <!-- Buttons in a single row -->
+                    <div class="notes-buttons">
+                        <button onclick="saveNote()">Save Note</button>
+                        <button onclick="deleteSelectedNotes()">Delete Selected Notes</button>
+                        <button onclick="openSelectedNotes()">Open Selected Notes</button>
+                    </div>
+                
                     <div class="notes-display-section">
                         <input type="text" id="search-notes" placeholder="Search notes..." oninput="searchNotes()">
                         <div id="saved-notes"></div>
-                        <button onclick="deleteSelectedNotes()">Delete Selected Notes</button>
-                        <button onclick="openselectedNotes()">Open Selected Notes</button>
+                    </div>
+                
+                    <!-- Selected Notes Display -->
+                    <div id="selected-notes-display">
+                        <h3>Selected Notes</h3>
                     </div>
                 </div>
                 <div class="tab-content" id="playground" style="display:none;">
