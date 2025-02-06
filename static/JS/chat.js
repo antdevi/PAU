@@ -169,3 +169,23 @@ function closeSelectedNotes() {
     let selectedNotesContainer = document.getElementById("selected-notes-display");
     selectedNotesContainer.innerHTML = ""; // Clears the displayed notes
 }
+document.addEventListener("DOMContentLoaded", function() {
+    showTab("progress"); // Ensure only progress is shown initially
+});
+
+function showTab(tabId) {
+    // Hide all tab contents
+    const allTabs = document.querySelectorAll(".tab-content");
+    allTabs.forEach(tab => tab.style.display = "none");
+
+    // Show the selected tab
+    document.getElementById(tabId).style.display = "block";
+
+    // Ensure progress image is displayed only when "Progress" is clicked
+    const progressSection = document.getElementById("progress");
+    if (tabId === "progress") {
+        progressSection.style.display = "block"; // Show progress graph
+    } else {
+        progressSection.style.display = "none"; // Hide progress graph
+    }
+}

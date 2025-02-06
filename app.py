@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, session
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session, send_from_directory,abort
 import openai
 from flask_sqlalchemy import SQLAlchemy
 import json
@@ -101,7 +101,17 @@ if __name__ == "__main__":
     finally:
         print("Stopping Quiz App...")
         quiz_process.terminate()
-        
+
+@app.route('/progress_chart_image')
+def progress_chart_image():
+    image_folder = os.path.abspath("data")  # Ensure absolute path
+    image_filename = "progress_chart.png"
+
+    # Check if the file exists before serving
+    if not os.path.exists(os.path.join(image_folder, image_filename)):
+        abort(404)  # Return 404 if file not found
+
+    return send_from_directory(image_folder, image_filename)
 
 if __name__ == "__main__":
     # Create database tables within the application context
