@@ -170,7 +170,7 @@ function closeSelectedNotes() {
     selectedNotesContainer.innerHTML = ""; // Clears the displayed notes
 }
 document.addEventListener("DOMContentLoaded", function() {
-    showTab("progress"); // Ensure only progress is shown initially
+    showTab("progress"); // Ensure only "Progress" is shown initially
 });
 
 function showTab(tabId) {
@@ -179,13 +179,23 @@ function showTab(tabId) {
     allTabs.forEach(tab => tab.style.display = "none");
 
     // Show the selected tab
-    document.getElementById(tabId).style.display = "block";
+    const selectedTab = document.getElementById(tabId);
+    if (selectedTab) {
+        selectedTab.style.display = "block";
+    }
 
-    // Ensure progress image is displayed only when "Progress" is clicked
+    // Handle Progress Tab: Ensure Progress Graph Updates
     const progressSection = document.getElementById("progress");
+    const progressChart = document.getElementById("progress-chart");
+
     if (tabId === "progress") {
-        progressSection.style.display = "block"; // Show progress graph
+        progressSection.style.display = "block"; // Show progress section
+
+        // Refresh the progress graph dynamically to prevent caching issues
+        if (progressChart) {
+            progressChart.src = progressChart.src.split("?")[0] + "?t=" + new Date().getTime();
+        }
     } else {
-        progressSection.style.display = "none"; // Hide progress graph
+        progressSection.style.display = "none"; // Hide progress section
     }
 }

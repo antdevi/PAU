@@ -6,6 +6,8 @@ from datetime import datetime
 import traceback
 import subprocess
 import os 
+from progress_tracker import format_json_file, get_progress_table, generate_progress_chart  # Import functions
+
 
 # Flask application setup
 app = Flask(__name__)
@@ -43,6 +45,15 @@ class AnswerLog(db.Model):
 
 # OpenAI API setup
 openai.api_key = 'your-api-key-here'
+
+def initialize_progress_tracker():
+    formatted_file = format_json_file()
+    if formatted_file:
+        progress_data = get_progress_table(formatted_file)  # ✅ Get progress table
+        if progress_data is not None:
+            generate_progress_chart(progress_data)  
+
+initialize_progress_tracker()  # Run before starting Flask
 
 # Route: Login Page
 @app.route('/', methods=['GET', 'POST'])
@@ -104,14 +115,21 @@ if __name__ == "__main__":
 
 @app.route('/progress_chart_image')
 def progress_chart_image():
-    image_folder = os.path.abspath("data")  # Ensure absolute path
-    image_filename = "progress_chart.png"
+    image_path = os.path.join("static", "progress_chart.png")
 
-    # Check if the file exists before serving
-    if not os.path.exists(os.path.join(image_folder, image_filename)):
-        abort(404)  # Return 404 if file not found
+    if not os.path.exists(image_path):
+        return "❌ Error: Progress chart not found!", 404
 
-    return send_from_directory(image_folder, image_filename)
+    return send_from_directory('static', 'progress_chart.png')
+
+@app.route('/progress_chart_image')
+def progress_chart_image():
+    image_path = os.path.join("static", "progress_chart.png")
+
+    if not os.path.exists(image_path):
+        return "❌ Error: Progress chart not found!", 404
+
+    return send_from_directory('static', 'progress_chart.png')
 
 if __name__ == "__main__":
     # Create database tables within the application context

@@ -75,5 +75,89 @@
         "subjective_answer": "jhshsdjskjkd",
         "score": 10,
         "timestamp": "2025-02-06T09:40:56.739Z"
+    },
+    {
+        "question": "Python supports the creation of anonymous functions at runtime, using a construct called __________",
+        "selected_option": "c) lambda",
+        "subjective_answer": "jahjaskajkso",
+        "score": 10,
+        "timestamp": "2025-02-07T07:59:17.393Z"
+    },
+    {
+        "question": "Python supports the creation of anonymous functions at runtime, using a construct called __________",
+        "selected_option": "c) lambda",
+        "subjective_answer": "jskjfjsko",
+        "score": 10,
+        "timestamp": "2025-02-07T07:59:24.558Z"
+    },
+    {
+        "question": "Python supports the creation of anonymous functions at runtime, using a construct called __________",
+        "selected_option": "b) anonymous",
+        "subjective_answer": "ahjkhsasjds",
+        "score": 0,
+        "timestamp": "2025-02-07T07:59:35.089Z"
+    },
+    {
+        "question": "Python supports the creation of anonymous functions at runtime, using a construct called __________",
+        "selected_option": "c) lambda",
+        "subjective_answer": "hsajjdjklskold",
+        "score": 10,
+        "timestamp": "2025-02-07T07:59:47.537Z"
+    },
+    {
+        "question": "Which of the following functions can help us to find the version of Python that we are currently working on?",
+        "selected_option": "d) sys.version",
+        "subjective_answer": "jajksosokd",
+        "score": 10,
+        "timestamp": "2025-02-07T07:59:55.005Z"
+    },
+    {
+        "question": "Which of the following functions can help us to find the version of Python that we are currently working on?",
+        "selected_option": "d) sys.version",
+        "subjective_answer": "sjdjjfkl",
+        "score": 10,
+        "timestamp": "2025-02-07T08:00:03.280Z"
+    },
+    {
+        "question": "Which of the following functions can help us to find the version of Python that we are currently working on?",
+        "selected_option": "c) sys.version()",
+        "subjective_answer": "sjsfkslf;",
+        "score": 0,
+        "timestamp": "2025-02-07T09:19:32.832Z"
+    },
+    {
+        "question": "Python supports the creation of anonymous functions at runtime, using a construct called __________",
+        "selected_option": "c) lambda",
+        "subjective_answer": "sakdlsk",
+        "score": 10,
+        "timestamp": "2025-02-07T09:19:39.223Z"
+    },
+    {
+        "question": "What is the order of precedence in Python?",
+        "selected_option": "d) Parentheses, Exponential, Multiplication, Division, Addition, Subtraction",
+        "subjective_answer": "akldlsl",
+        "score": 10,
+        "timestamp": "2025-02-07T09:19:45.133Z"
+    },
+    {
+        "question": "Which of the following functions can help us to find the version of Python that we are currently working on?",
+        "selected_option": "d) sys.version",
+        "subjective_answer": "hdgsjsdhiads",
+        "score": 10,
+        "timestamp": "2025-02-07T09:34:53.223Z"
+    },
+    {
+        "question": "Python supports the creation of anonymous functions at runtime, using a construct called __________",
+        "selected_option": "c) lambda",
+        "subjective_answer": "jaskjdjkkaokp",
+        "score": 10,
+        "timestamp": "2025-02-07T09:35:00.765Z"
+    },
+    {
+        "question": "What is the order of precedence in Python?",
+        "selected_option": "d) Parentheses, Exponential, Multiplication, Division, Addition, Subtraction",
+        "subjective_answer": "jaakjsakslkas",
+        "score": 10,
+        "timestamp": "2025-02-07T09:35:07.727Z"
     }
 ]
