@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PAU Chatbot</title>
+
+  <!-- Use your static URL paths for CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/chat.css') }}">
+</head>
+<body>
+
+  <!-- ✅ Top Taskbar -->
+  <div class="taskbar" role="banner">
+    <div class="left-section">
+      <!-- Original Buttons -->
+      <button class="taskbar-btn" aria-label="Profile">Profile</button>
+      <button class="taskbar-btn" aria-label="Logout">Logout</button>
+    </div>
+    <div class="right-section">
+      <span>Sync with Bot:</span>
+      <div class="progress-container">
+        <div class="progress-bar" id="syncProgress"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Main Layout (Side Panel on Left + Chat) -->
+  <div class="main-container">
+    
+    <div id="sidePanel">
+      <div class="tab-buttons">
+        <button onclick="openTab('progress')">Progress</button>
+        <button onclick="openTab('notes')">Notes</button>
+        <button onclick="openTab('playground')">Playground</button>
+      </div>
+      <!-- Progress Tab -->
+      <div id="progressTab" class="tab-content" style="display: none;">
+        <h2>Progress</h2>
+        <!-- Canvas for displaying the quiz score chart -->
+        <canvas id="progressChart"></canvas>
+      </div>
+      <!-- Notes Tab -->
+      <div id="notesTab" class="tab-content" style="display: none;">
+        <div class="notes-form">
+          <input type="text" id="noteTitle" placeholder="Note title...">
+          <textarea id="noteContent" placeholder="Write your note..."></textarea>
+          <button onclick="saveNote()">Save Note</button>
+        </div>
+        <input type="text" id="search-notes" placeholder="Search notes..." oninput="searchNotes()">
+        <ul id="notesList"></ul>
+        <div class="notes-buttons">
+          <button onclick="deleteSelectedNotes()">Delete Note(s)</button>
+          <button onclick="openSelectedNotes()">Show Selected Notes</button>
+        </div>
+        <!-- Container to display selected note(s) with a Close button -->
+        <div id="selected-notes-display"></div>
+      </div>
+      <!-- Playground Tab -->
+      <div id="playgroundTab" class="tab-content" style="display: none;">
+        <h2>Playground - Revision</h2>
+        <div id="quiz-section">
+          <button onclick="loadQuiz()">Load Quiz</button>
+          <div id="quiz-questions"></div>
+          <button onclick="submitQuiz()">Submit Quiz</button>
+        </div>
+      </div>
+    </div>
+    <!-- ✅ Right Chat Section -->
+    <div id="chat-container" role="region" aria-label="Chat Container">
+      <h1>PAU Chatbot</h1>
+      <div id="chatbox" role="log" aria-live="polite" aria-label="Chat messages"></div>
+
+      <!-- ✅ Chat Input Box & Send Button (Side by Side) -->
+      <div class="chat-input-container">
+        <input type="text" id="userInput" placeholder="Type a message..." autofocus>
+        <button id="sendButton" onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Include your main JS for chat logic (unchanged) -->
+  <script src="{{ url_for('static', filename='JS/chat.js') }}"></script>
+</body>
+</html>

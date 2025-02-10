@@ -1,0 +1,320 @@
+/* ==============================
+   YOUR ORIGINAL STYLES (UNTOUCHED)
+   ============================== */
+   body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* ✅ Taskbar Styling */
+.taskbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222;
+    padding: 10px 20px;
+}
+
+.left-section {
+    display: flex;
+    gap: 10px;
+}
+
+.right-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.taskbar-btn {
+    background-color: white;
+    color: black;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* ✅ Progress Bar Styling */
+.progress-container {
+    width: 150px;
+    height: 10px;
+    background-color: #444;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background-color: limegreen;
+    transition: width 0.5s ease-in-out;
+}
+
+/* ✅ Main Layout (Side Panel on Left, Chat on Right) */
+.main-container {
+    display: flex;
+    height: calc(100vh - 50px);
+    overflow: hidden;
+}
+
+/* ✅ Side Panel */
+/* IMPORTANT: Use the same selector as your HTML. If your HTML uses id="sidePanel", use #sidePanel */
+#sidePanel {
+    width: 300px;  /* Fixed width as required */
+    background-color: #222;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+    border-right: 1px solid white;
+}
+
+.tab-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.tab-buttons button {
+    /*width: 100%;*/
+    padding: 12px 20px;
+    background-color: #333;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: left;
+    border-radius: 5px;
+}
+
+.tab-buttons button:hover {
+    background-color: #555;
+}
+
+.tab-content {
+    flex-grow: 1;
+    padding: 15px;
+}
+
+/* Hide tab content by default */
+.tab {
+    display: none;
+}
+
+.tab.active {
+    display: block;
+}
+
+/* ✅ Chat Section */
+#chat-container {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ✅ Chatbox (Fixed Square Box) */
+#chatbox {
+    width: 600px;  /* Fixed width for chat box */
+    height: 400px;  /* Fixed height for chat box */
+    overflow-y: auto;  /* Enable scrolling */
+    border: 1px solid white;
+    padding: 10px;
+    background-color: #222;
+    border-radius: 10px;
+}
+
+/* ✅ Chat Input Box and Send Button */
+.chat-input-container {
+    display: flex;
+    align-items: center;
+    width: 600px;  /* Match chatbox width */
+    background-color: #111;
+    padding: 10px;
+    border-top: 1px solid white;
+    border-radius: 10px;
+}
+
+#userInput {
+    flex-grow: 1;
+    padding: 12px;
+    border: 1px solid white;
+    background-color: white;
+    color: black;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+#sendButton {
+    padding: 12px 20px;
+    background-color: white;
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+
+#sidePanel {
+    width: 350px;  /* Increased from 300px to 350px (adjust as needed) */
+    /* Other properties (background, padding, etc.) remain the same */
+}
+
+
+/* ✅ Notes Section Styling */
+#notesTab {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;  /* Space between elements */
+    padding: 15px;
+}
+
+/* Input Fields in Notes Section */
+#noteTitle, #noteContent {
+    width: 80%;  /* Adjusted for a fixed side panel */
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid white;
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+#search-notes {
+    background-color: #222;   /* Same dark background as the taskbar */
+    border: 1px solid white;  /* White border */
+    color: white;             /* White text */
+    padding: 10px;
+    border-radius: 5px;
+    width: 80%;               /* Adjust width as desired */
+    margin-top: 10px;         /* Ensure some spacing from other elements */
+}
+
+/* Textarea for Notes */
+#noteContent {
+    height: 120px;
+    resize: vertical;
+}
+
+/* Buttons Container in Notes Section */
+.notes-buttons {
+    display: flex;
+    gap: 10px;  /* Space between buttons */
+    margin-top: 10px;
+}
+
+/* General Button Styling */
+button {
+    padding: 10px 15px;
+    background-color: white;
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #ddd;
+}
+
+/* ==============================
+   ADDED STYLES FOR FURTHER ENHANCEMENTS
+   ============================== */
+
+/* Active Tab Button Highlight */
+.tab-buttons button.active-tab {
+    background-color: #666 !important;
+}
+
+
+/* Styling for the Notes List */
+#notesList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 180px;  /* Adjust height as needed */
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    background-color: #111;
+    border-radius: 5px;
+}
+
+#notesList li {
+    padding: 8px;
+    border-bottom: 1px solid #333;
+}
+
+#notesList li:nth-child(odd) {
+    background-color: #1c1c1c;
+}
+
+#notesList li:hover {
+    background-color: #333;
+}
+
+/* Selected Notes Display (where selected notes are shown with a Close button) */
+#selected-notes-display {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    background-color: #111;
+}
+
+/* Close Button for Selected Notes */
+.close-notes-button {
+    display: inline-block;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.close-notes-button:hover {
+    background-color: #c0392b;
+}
+
+/* ==============================
+   STYLES FOR PLAYGROUND (REVISION) / QUIZ SECTION
+   ============================== */
+
+/* Quiz Section Container */
+#quiz-section {
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #111;
+    margin-top: 10px;
+}
+
+/* Individual Quiz Question */
+.quiz-question {
+    margin-bottom: 15px;
+}
+
+.quiz-question p {
+    margin: 0 0 5px 0;
+}
+
+/* Progress Chart (Canvas) Styling */
+#progressChart {
+    max-width: 100%;
+    background-color: #222;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+}
