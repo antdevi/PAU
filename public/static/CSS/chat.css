@@ -199,6 +199,7 @@
     border-radius: 5px;
     width: 80%;               /* Adjust width as desired */
     margin-top: 10px;         /* Ensure some spacing from other elements */
+    margin-bottom: 10px;
 }
 
 /* Textarea for Notes */
@@ -227,6 +228,41 @@ button {
 
 button:hover {
     background-color: #ddd;
+}
+#selected-notes-display {
+    padding: 15px;
+    border: 1px solid #ccc;
+    background-color: #111;
+    color: white;
+    max-width: 80%;
+    margin-top: 15px;
+    border-radius: 5px;
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+/* Individual Note Container */
+.note-container {
+    padding: 10px;
+    border-bottom: 1px solid #333;
+    margin-bottom: 10px;
+}
+
+/* Close Button */
+.close-notes-button {
+    display: block;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.close-notes-button:hover {
+    background-color: #c0392b;
 }
 
 /* ==============================

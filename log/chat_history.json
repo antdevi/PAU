@@ -98,5 +98,37 @@
     {
         "role": "assistant",
         "message": "I'm not aware of a specific location you need to visit. As I recall, we were just catching up on the morning routine. Could you tell me more about what's going on today at work or in your personal life that you'd like to share with me?"
+    },
+    {
+        "role": "user",
+        "message": "Good Morning I stay in Pune"
+    },
+    {
+        "role": "assistant",
+        "message": "Sorry, an error occurred while processing your request."
+    },
+    {
+        "role": "user",
+        "message": "Good Morning"
+    },
+    {
+        "role": "assistant",
+        "message": "Sorry, an error occurred while processing your request."
+    },
+    {
+        "role": "user",
+        "message": "Good Morning"
+    },
+    {
+        "role": "assistant",
+        "message": "Sorry, an error occurred while processing your request."
+    },
+    {
+        "role": "user",
+        "message": "good morning"
+    },
+    {
+        "role": "assistant",
+        "message": "Good morning Antara Das! Hope you have a great day ahead, both at work and in Pune!"
     }
 ]
