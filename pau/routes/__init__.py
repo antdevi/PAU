@@ -16,5 +16,6 @@ def create_app():
 
     # ✅ Register blueprints
     app.register_blueprint(chat_bp)
-    app.register_blueprint(notes_bp, url_prefix="/notes")
+    app.register_blueprint(chat_bp)
+    
     return app

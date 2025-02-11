@@ -1,7 +1,7 @@
 # app.py
 import logging
 from  pau import create_app # Adjust the import based on your package structure
-from flask import render_template
+from flask import render_template, send_from_directory
 
 app = create_app()
 
@@ -12,6 +12,11 @@ logging.basicConfig(level=logging.DEBUG)
 def home():
     app.logger.debug("Home route accessed")
     return render_template("chat.html")
+
+@app.route("/revision")
+def serve_revision():
+    return send_from_directory("public/templates", "revision.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

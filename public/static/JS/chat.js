@@ -264,3 +264,6 @@ function openSelectedNotes() {
       alert("Failed to open notes. Check console for details.");
   });
 }
+function revisionSection() {
+  window.location.href = "/revision"; // Redirects to revision module selection page
+}

@@ -3,6 +3,7 @@ from flask import Flask
 from .routes.chat_routes import chat_bp
 from .routes.note_routes import notes_bp
 
+
  # ✅ Ensure this is imported
 
 def create_app():
@@ -12,6 +13,7 @@ def create_app():
                 template_folder=os.path.join(basedir, "../public/templates"),
                 static_folder=os.path.join(basedir, "../public/static"))
     app.register_blueprint(chat_bp)
+    
     app.register_blueprint(notes_bp, url_prefix="/notes")
 
 

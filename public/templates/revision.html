@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revision Modules</title>
+    <link rel="stylesheet" href="/public/static/CSS/chat.css">
+</head>
+<body>
+    <div id="revision-container">
+        <h2>Select a Module</h2>
+        <button onclick="startQuiz('python')">Python</button>
+        <button onclick="startQuiz('aws')">AWS</button>
+        <button onclick="startQuiz('devops')">DevOps</button>
+        <br><br>
+        <button onclick="goBack()">Back</button>
+    </div>
+
+    <script>
+        function startQuiz(module) {
+            window.location.href = `quiz.html?module=${module}`;
+        }
+
+        function goBack() {
+            window.location.href = "chat.html"; // Back to chat
+        }
+    </script>
+</body>
+</html>
