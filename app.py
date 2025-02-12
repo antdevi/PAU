@@ -1,7 +1,7 @@
 # app.py
 import logging
 from  pau import create_app # Adjust the import based on your package structure
-from flask import render_template, send_from_directory
+from flask import render_template
 
 app = create_app()
 
@@ -15,7 +15,7 @@ def home():
 
 @app.route("/revision")
 def serve_revision():
-    return send_from_directory("public/templates", "revision.html")
+    return render_template("revision.html")
 
 
 if __name__ == "__main__":
