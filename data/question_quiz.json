@@ -1,0 +1,98 @@
+{
+  "python": [
+    {
+      "question": "What is a lambda function in Python?",
+      "options": [
+        "A function without a name",
+        "A named function",
+        "A class constructor",
+        "None of the above"
+      ],
+      "answer": "A function without a name"
+    },
+    {
+      "question": "Which keyword is used to define a function in Python?",
+      "options": [
+        "func",
+        "define",
+        "def",
+        "lambda"
+      ],
+      "answer": "def"
+    },
+    {
+      "question": "What is the output type of the expression 3 / 2 in Python 3?",
+      "options": [
+        "int",
+        "float",
+        "str",
+        "bool"
+      ],
+      "answer": "float"
+    }
+  ],
+  "aws": [
+    {
+      "question": "Which AWS service is used for scalable object storage?",
+      "options": [
+        "Amazon EC2",
+        "Amazon S3",
+        "Amazon RDS",
+        "Amazon VPC"
+      ],
+      "answer": "Amazon S3"
+    },
+    {
+      "question": "Which AWS service provides a NoSQL database?",
+      "options": [
+        "Amazon Aurora",
+        "Amazon RDS",
+        "Amazon DynamoDB",
+        "Amazon Redshift"
+      ],
+      "answer": "Amazon DynamoDB"
+    },
+    {
+      "question": "Which AWS service helps manage encryption keys?",
+      "options": [
+        "AWS IAM",
+        "AWS KMS",
+        "AWS CloudTrail",
+        "AWS Shield"
+      ],
+      "answer": "AWS KMS"
+    }
+  ],
+  "devops": [
+    {
+      "question": "What does CI/CD stand for?",
+      "options": [
+        "Continuous Integration/Continuous Deployment",
+        "Continuous Improvement/Continuous Delivery",
+        "Continuous Integration/Continuous Development",
+        "Continuous Inspection/Continuous Deployment"
+      ],
+      "answer": "Continuous Integration/Continuous Deployment"
+    },
+    {
+      "question": "Which tool is commonly used for container orchestration?",
+      "options": [
+        "Docker Swarm",
+        "Kubernetes",
+        "Jenkins",
+        "GitLab"
+      ],
+      "answer": "Kubernetes"
+    },
+    {
+      "question": "Which version control system is most widely used in DevOps?",
+      "options": [
+        "Subversion",
+        "Git",
+        "Mercurial",
+        "CVS"
+      ],
+      "answer": "Git"
+    }
+  ]
+}

@@ -1,23 +1,58 @@
-{"question": "Python supports the creation of anonymous functions at runtime, using a construct called __________", "selected_option": "c) lambda", "subjective_answer": "hsjssksksl", "score": 10, "timestamp": "2025-02-05T08:56:29.843Z"}
-{"question": "Which of the following functions can help us to find the version of Python that we are currently working on?", "selected_option": "d) sys.version", "subjective_answer": "wjskllpcckdjjf", "score": 10, "timestamp": "2025-02-05T08:56:39.616Z"}
-{"question": "Python supports the creation of anonymous functions at runtime, using a construct called __________", "selected_option": "b) anonymous", "subjective_answer": "haiajsssoosos", "score": 0, "timestamp": "2025-02-05T08:56:52.463Z"}
-{"question": "Which of the following functions can help us to find the version of Python that we are currently working on?", "selected_option": "d) sys.version", "subjective_answer": "ooopojjkkj", "score": 10, "timestamp": "2025-02-05T08:57:03.582Z"}
-{"question": "Python supports the creation of anonymous functions at runtime, using a construct called __________", "selected_option": "c) lambda", "subjective_answer": "assnasbwheejjndn", "score": 10, "timestamp": "2025-02-05T08:57:14.803Z"}
-{"question": "What is the order of precedence in Python?", "selected_option": "d) Parentheses, Exponential, Multiplication, Division, Addition, Subtraction", "subjective_answer": "haguayssiihhejdiofnj", "score": 10, "timestamp": "2025-02-05T08:57:24.610Z"}
-{"question": "What is the order of precedence in Python?", "selected_option": "d) Parentheses, Exponential, Multiplication, Division, Addition, Subtraction", "subjective_answer": "sfgagsuhsdh", "score": 10, "timestamp": "2025-02-06T09:39:30.960Z"}
-{"question": "Which of the following functions can help us to find the version of Python that we are currently working on?", "selected_option": "d) sys.version", "subjective_answer": "agahgjsjs", "score": 10, "timestamp": "2025-02-06T09:40:34.823Z"}
-{"question": "Which of the following functions can help us to find the version of Python that we are currently working on?", "selected_option": "d) sys.version", "subjective_answer": "gshgashhhds", "score": 10, "timestamp": "2025-02-06T09:40:42.332Z"}
-{"question": "Which of the following functions can help us to find the version of Python that we are currently working on?", "selected_option": "d) sys.version", "subjective_answer": "aghhaskksld", "score": 10, "timestamp": "2025-02-06T09:40:50.444Z"}
-{"question": "Python supports the creation of anonymous functions at runtime, using a construct called __________", "selected_option": "c) lambda", "subjective_answer": "jhshsdjskjkd", "score": 10, "timestamp": "2025-02-06T09:40:56.739Z"}
-{"question": "Python supports the creation of anonymous functions at runtime, using a construct called __________", "selected_option": "c) lambda", "subjective_answer": "jahjaskajkso", "score": 10, "timestamp": "2025-02-07T07:59:17.393Z"}
-{"question": "Python supports the creation of anonymous functions at runtime, using a construct called __________", "selected_option": "c) lambda", "subjective_answer": "jskjfjsko", "score": 10, "timestamp": "2025-02-07T07:59:24.558Z"}
-{"question": "Python supports the creation of anonymous functions at runtime, using a construct called __________", "selected_option": "b) anonymous", "subjective_answer": "ahjkhsasjds", "score": 0, "timestamp": "2025-02-07T07:59:35.089Z"}
-{"question": "Python supports the creation of anonymous functions at runtime, using a construct called __________", "selected_option": "c) lambda", "subjective_answer": "hsajjdjklskold", "score": 10, "timestamp": "2025-02-07T07:59:47.537Z"}
-{"question": "Which of the following functions can help us to find the version of Python that we are currently working on?", "selected_option": "d) sys.version", "subjective_answer": "jajksosokd", "score": 10, "timestamp": "2025-02-07T07:59:55.005Z"}
-{"question": "Which of the following functions can help us to find the version of Python that we are currently working on?", "selected_option": "d) sys.version", "subjective_answer": "sjdjjfkl", "score": 10, "timestamp": "2025-02-07T08:00:03.280Z"}
-{"question": "Which of the following functions can help us to find the version of Python that we are currently working on?", "selected_option": "c) sys.version()", "subjective_answer": "sjsfkslf;", "score": 0, "timestamp": "2025-02-07T09:19:32.832Z"}
-{"question": "Python supports the creation of anonymous functions at runtime, using a construct called __________", "selected_option": "c) lambda", "subjective_answer": "sakdlsk", "score": 10, "timestamp": "2025-02-07T09:19:39.223Z"}
-{"question": "What is the order of precedence in Python?", "selected_option": "d) Parentheses, Exponential, Multiplication, Division, Addition, Subtraction", "subjective_answer": "akldlsl", "score": 10, "timestamp": "2025-02-07T09:19:45.133Z"}
-{"question": "Which of the following functions can help us to find the version of Python that we are currently working on?", "selected_option": "d) sys.version", "subjective_answer": "hdgsjsdhiads", "score": 10, "timestamp": "2025-02-07T09:34:53.223Z"}
-{"question": "Python supports the creation of anonymous functions at runtime, using a construct called __________", "selected_option": "c) lambda", "subjective_answer": "jaskjdjkkaokp", "score": 10, "timestamp": "2025-02-07T09:35:00.765Z"}
-{"question": "What is the order of precedence in Python?", "selected_option": "d) Parentheses, Exponential, Multiplication, Division, Addition, Subtraction", "subjective_answer": "jaakjsakslkas", "score": 10, "timestamp": "2025-02-07T09:35:07.727Z"}
+{
+    "python": [
+        {
+            "score": 15,
+            "results": [
+                {
+                    "question": "What is a lambda function in Python?",
+                    "user_answer": "A named function",
+                    "correct_answer": "A function without a name",
+                    "correct": false,
+                    "subjective": "AKSJKAOIopioj"
+                },
+                {
+                    "question": "Which keyword is used to define a function in Python?",
+                    "user_answer": "def",
+                    "correct_answer": "def",
+                    "correct": true,
+                    "subjective": "def name() is the syntax for making a function"
+                },
+                {
+                    "question": "What is the output type of the expression 3 / 2 in Python 3?",
+                    "user_answer": "float",
+                    "correct_answer": "float",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ]
+        }
+    ],
+    "aws": [
+        {
+            "score": 15,
+            "results": [
+                {
+                    "question": "Which AWS service is used for scalable object storage?",
+                    "user_answer": "Amazon EC2",
+                    "correct_answer": "Amazon S3",
+                    "correct": false,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which AWS service helps manage encryption keys?",
+                    "user_answer": "AWS KMS",
+                    "correct_answer": "AWS KMS",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which AWS service provides a NoSQL database?",
+                    "user_answer": "Amazon DynamoDB",
+                    "correct_answer": "Amazon DynamoDB",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ]
+        }
+    ]
+}

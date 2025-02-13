@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/chat.css') }}">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <!-- Score Panel at the Top -->
+  <div id="score-panel" style="font-size: 1.2em; margin-bottom: 20px;">
+    Score: <span id="score">0</span>
+  </div>
+
+  <!-- Quiz Section -->
+  <div id="quiz-section">
+    <div id="question-container"></div>
+    <button id="submit-btn">Submit Answer</button>
+    <button id="next-btn" style="display:none;">Next Question</button>
+    <div id="feedback" style="margin-top: 15px;"></div>
+  </div>
+
+  <script>
+    let currentModule = "{{ module }}"; // Passed from Flask
+    let questions = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let results = []; // Array to hold the result for each question
+
+    $(document).ready(function() {
+      // Fetch questions for the module using the API
+      $.getJSON(`/api/quiz/${currentModule}`, function(data) {
+        if (data.error) {
+          $("#quiz-section").html("<p>Error: " + data.error + "</p>");
+          return;
+        }
+        questions = data;
+        displayQuestion();
+      });
+
+      // Process answer on "Submit Answer"
+      $("#submit-btn").click(function() {
+        processAnswer();
+      });
+
+      // Show next question or finish quiz
+      $("#next-btn").click(function() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+          displayQuestion();
+        } else {
+          submitQuiz();
+        }
+      });
+    });
+
+    // Display the current question
+    function displayQuestion() {
+      $("#feedback").html("");
+      $("#next-btn").hide();
+      $("#submit-btn").show();
+
+      let q = questions[currentQuestionIndex];
+      let html = `<div class="quiz-question">
+                    <p><strong>${currentQuestionIndex + 1}. ${q.question}</strong></p>
+                    ${q.options.map((option, idx) => 
+                      `<input type="radio" name="mcq" id="option${idx}" value="${option}">
+                       <label for="option${idx}">${option}</label><br>`
+                    ).join('')}
+                    <br>
+                    <label for="subjective">Your subjective answer:</label><br>
+                    <textarea id="subjective" rows="3" cols="50"></textarea>
+                  </div>`;
+      $("#question-container").html(html);
+    }
+
+    // Check the answer, update score and show feedback
+    function processAnswer() {
+      let q = questions[currentQuestionIndex];
+      let selected = $("input[name='mcq']:checked").val();
+      let subjective = $("#subjective").val().trim();
+
+      if (!selected) {
+        alert("Please select an option.");
+        return;
+      }
+
+      // Determine if the MCQ answer is correct
+      let isCorrect = (selected === q.answer);
+      if (isCorrect) {
+        score += 10;
+        $("#feedback").html("<span style='color: green;'>Correct!</span>");
+      } else {
+        score -= 5;
+        $("#feedback").html(`<span style='color: red;'>Incorrect! The correct answer is: ${q.answer}</span>`);
+      }
+      $("#score").text(score);
+
+      // Save the result for this question
+      results.push({
+        question: q.question,
+        user_answer: selected,
+        correct_answer: q.answer,
+        correct: isCorrect,
+        subjective: subjective
+      });
+
+      // Disable further changes for this question
+      $("input[name='mcq']").prop("disabled", true);
+      $("#subjective").prop("disabled", true);
+
+      // Hide submit button and show next button
+      $("#submit-btn").hide();
+      $("#next-btn").show();
+    }
+
+    // Submit the entire quiz to the backend
+    function submitQuiz() {
+      $.ajax({
+        url: "/api/submit_quiz",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ module: currentModule, answers: results }),
+        success: function(response) {
+          let resultHtml = `<h3>Final Score: ${response.score}</h3>`;
+          response.results.forEach(r => {
+            resultHtml += `<p><strong>${r.question}</strong></p>
+                           <p>Your Answer: ${r.user_answer}</p>
+                           <p>Correct Answer: ${r.correct_answer}</p>
+                           <p>Your subjective answer: ${r.subjective || "N/A"}</p>
+                           <p style="color: ${r.correct ? 'green' : 'red'};">${r.correct ? "✅ Correct" : "❌ Incorrect"}</p><hr>`;
+          });
+          $("#quiz-section").html(resultHtml);
+        }
+      });
+    }
+  </script>
+</body>
+</html>
