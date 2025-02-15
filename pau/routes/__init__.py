@@ -5,6 +5,7 @@ from flask import Flask, render_template
 from pau.routes.chat_routes import chat_bp
 from pau.routes.note_routes import notes_bp
 from pau.routes.quiz_routes import quiz_bp
+from pau.routes.progress_routes import progress_bp
 
 
 def create_app():
@@ -18,6 +19,7 @@ def create_app():
     # ✅ Register blueprints
     app.register_blueprint(chat_bp)
     app.register_blueprint(quiz_bp)
+    app.register_blueprint(progress_bp)
     app.register_blueprint(notes_bp, url_prefix="/notes")
     
     return app

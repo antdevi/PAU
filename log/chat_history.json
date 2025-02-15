@@ -130,5 +130,13 @@
     {
         "role": "assistant",
         "message": "Good morning Antara Das! Hope you have a great day ahead, both at work and in Pune!"
+    },
+    {
+        "role": "user",
+        "message": "good monring"
+    },
+    {
+        "role": "assistant",
+        "message": "I think I can get it now: Good morning! It was nice chatting with you, Antara. Have a fantastic day and I hope your commute is smooth to the office today!"
     }
 ]

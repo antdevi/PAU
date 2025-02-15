@@ -25,6 +25,302 @@
                     "subjective": ""
                 }
             ]
+        },
+        {
+            "score": 15,
+            "results": [
+                {
+                    "question": "What is a lambda function in Python?",
+                    "user_answer": "A named function",
+                    "correct_answer": "A function without a name",
+                    "correct": false,
+                    "subjective": ""
+                },
+                {
+                    "question": "What is the output type of the expression 3 / 2 in Python 3?",
+                    "user_answer": "float",
+                    "correct_answer": "float",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which keyword is used to define a function in Python?",
+                    "user_answer": "def",
+                    "correct_answer": "def",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ],
+            "date": "2025-02-14"
+        },
+        {
+            "score": 30,
+            "results": [
+                {
+                    "question": "What is a lambda function in Python?",
+                    "user_answer": "A function without a name",
+                    "correct_answer": "A function without a name",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which keyword is used to define a function in Python?",
+                    "user_answer": "def",
+                    "correct_answer": "def",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "What is the output type of the expression 3 / 2 in Python 3?",
+                    "user_answer": "float",
+                    "correct_answer": "float",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ],
+            "date": "2025-02-14"
+        },
+        {
+            "score": 30,
+            "results": [
+                {
+                    "question": "What is a lambda function in Python?",
+                    "user_answer": "A function without a name",
+                    "correct_answer": "A function without a name",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which keyword is used to define a function in Python?",
+                    "user_answer": "def",
+                    "correct_answer": "def",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "What is the output type of the expression 3 / 2 in Python 3?",
+                    "user_answer": "float",
+                    "correct_answer": "float",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ],
+            "date": "2025-02-14"
+        },
+        {
+            "score": 30,
+            "results": [
+                {
+                    "question": "What is a lambda function in Python?",
+                    "user_answer": "A function without a name",
+                    "correct_answer": "A function without a name",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which keyword is used to define a function in Python?",
+                    "user_answer": "def",
+                    "correct_answer": "def",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "What is the output type of the expression 3 / 2 in Python 3?",
+                    "user_answer": "float",
+                    "correct_answer": "float",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ],
+            "date": "2025-02-14"
+        },
+        {
+            "score": 30,
+            "results": [
+                {
+                    "question": "Which keyword is used to define a function in Python?",
+                    "user_answer": "def",
+                    "correct_answer": "def",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "What is a lambda function in Python?",
+                    "user_answer": "A function without a name",
+                    "correct_answer": "A function without a name",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "What is the output type of the expression 3 / 2 in Python 3?",
+                    "user_answer": "float",
+                    "correct_answer": "float",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ]
+        },
+        {
+            "score": 30,
+            "date": "2025-02-15 21:24:43",
+            "results": [
+                {
+                    "question": "What is a lambda function in Python?",
+                    "user_answer": "A function without a name",
+                    "correct_answer": "A function without a name",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "What is the output type of the expression 3 / 2 in Python 3?",
+                    "user_answer": "float",
+                    "correct_answer": "float",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which keyword is used to define a function in Python?",
+                    "user_answer": "def",
+                    "correct_answer": "def",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ]
+        },
+        {
+            "score": 30,
+            "date": "2025-02-15 21:39:10",
+            "results": [
+                {
+                    "question": "What is the output type of the expression 3 / 2 in Python 3?",
+                    "user_answer": "float",
+                    "correct_answer": "float",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which keyword is used to define a function in Python?",
+                    "user_answer": "def",
+                    "correct_answer": "def",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "What is a lambda function in Python?",
+                    "user_answer": "A function without a name",
+                    "correct_answer": "A function without a name",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ]
+        },
+        {
+            "score": 30,
+            "date": "2025-02-15 21:44:33",
+            "results": [
+                {
+                    "question": "What is a lambda function in Python?",
+                    "user_answer": "A function without a name",
+                    "correct_answer": "A function without a name",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "What is the output type of the expression 3 / 2 in Python 3?",
+                    "user_answer": "float",
+                    "correct_answer": "float",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which keyword is used to define a function in Python?",
+                    "user_answer": "def",
+                    "correct_answer": "def",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ]
+        },
+        {
+            "score": 30,
+            "date": "2025-02-15 21:51:18",
+            "results": [
+                {
+                    "question": "What is a lambda function in Python?",
+                    "user_answer": "A function without a name",
+                    "correct_answer": "A function without a name",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which keyword is used to define a function in Python?",
+                    "user_answer": "def",
+                    "correct_answer": "def",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "What is the output type of the expression 3 / 2 in Python 3?",
+                    "user_answer": "float",
+                    "correct_answer": "float",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ]
+        },
+        {
+            "score": 30,
+            "date": "2025-02-15 22:04:35",
+            "results": [
+                {
+                    "question": "Which keyword is used to define a function in Python?",
+                    "user_answer": "def",
+                    "correct_answer": "def",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "What is the output type of the expression 3 / 2 in Python 3?",
+                    "user_answer": "float",
+                    "correct_answer": "float",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "What is a lambda function in Python?",
+                    "user_answer": "A function without a name",
+                    "correct_answer": "A function without a name",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ]
+        },
+        {
+            "score": 30,
+            "date": "2025-02-15 22:11:20",
+            "results": [
+                {
+                    "question": "What is the output type of the expression 3 / 2 in Python 3?",
+                    "user_answer": "float",
+                    "correct_answer": "float",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which keyword is used to define a function in Python?",
+                    "user_answer": "def",
+                    "correct_answer": "def",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "What is a lambda function in Python?",
+                    "user_answer": "A function without a name",
+                    "correct_answer": "A function without a name",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ]
         }
     ],
     "aws": [
@@ -49,6 +345,358 @@
                     "question": "Which AWS service provides a NoSQL database?",
                     "user_answer": "Amazon DynamoDB",
                     "correct_answer": "Amazon DynamoDB",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ]
+        },
+        {
+            "score": 30,
+            "results": [
+                {
+                    "question": "Which AWS service helps manage encryption keys?",
+                    "user_answer": "AWS KMS",
+                    "correct_answer": "AWS KMS",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which AWS service is used for scalable object storage?",
+                    "user_answer": "Amazon S3",
+                    "correct_answer": "Amazon S3",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which AWS service provides a NoSQL database?",
+                    "user_answer": "Amazon DynamoDB",
+                    "correct_answer": "Amazon DynamoDB",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ],
+            "date": "2025-02-14"
+        },
+        {
+            "score": 30,
+            "results": [
+                {
+                    "question": "Which AWS service is used for scalable object storage?",
+                    "user_answer": "Amazon S3",
+                    "correct_answer": "Amazon S3",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which AWS service helps manage encryption keys?",
+                    "user_answer": "AWS KMS",
+                    "correct_answer": "AWS KMS",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which AWS service provides a NoSQL database?",
+                    "user_answer": "Amazon DynamoDB",
+                    "correct_answer": "Amazon DynamoDB",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ],
+            "date": "2025-02-14"
+        },
+        {
+            "score": 0,
+            "results": [
+                {
+                    "question": "Which AWS service is used for scalable object storage?",
+                    "user_answer": "Amazon S3",
+                    "correct_answer": "Amazon S3",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which AWS service provides a NoSQL database?",
+                    "user_answer": "Amazon RDS",
+                    "correct_answer": "Amazon DynamoDB",
+                    "correct": false,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which AWS service helps manage encryption keys?",
+                    "user_answer": "AWS CloudTrail",
+                    "correct_answer": "AWS KMS",
+                    "correct": false,
+                    "subjective": ""
+                }
+            ]
+        },
+        {
+            "score": 30,
+            "date": "2025-02-15 21:25:07",
+            "results": [
+                {
+                    "question": "Which AWS service provides a NoSQL database?",
+                    "user_answer": "Amazon DynamoDB",
+                    "correct_answer": "Amazon DynamoDB",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which AWS service helps manage encryption keys?",
+                    "user_answer": "AWS KMS",
+                    "correct_answer": "AWS KMS",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which AWS service is used for scalable object storage?",
+                    "user_answer": "Amazon S3",
+                    "correct_answer": "Amazon S3",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ]
+        },
+        {
+            "score": 30,
+            "date": "2025-02-15 21:39:24",
+            "results": [
+                {
+                    "question": "Which AWS service helps manage encryption keys?",
+                    "user_answer": "AWS KMS",
+                    "correct_answer": "AWS KMS",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which AWS service provides a NoSQL database?",
+                    "user_answer": "Amazon DynamoDB",
+                    "correct_answer": "Amazon DynamoDB",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which AWS service is used for scalable object storage?",
+                    "user_answer": "Amazon S3",
+                    "correct_answer": "Amazon S3",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ]
+        },
+        {
+            "score": 30,
+            "date": "2025-02-15 21:45:06",
+            "results": [
+                {
+                    "question": "Which AWS service helps manage encryption keys?",
+                    "user_answer": "AWS KMS",
+                    "correct_answer": "AWS KMS",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which AWS service is used for scalable object storage?",
+                    "user_answer": "Amazon S3",
+                    "correct_answer": "Amazon S3",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which AWS service provides a NoSQL database?",
+                    "user_answer": "Amazon DynamoDB",
+                    "correct_answer": "Amazon DynamoDB",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ]
+        }
+    ],
+    "devops": [
+        {
+            "score": 15,
+            "results": [
+                {
+                    "question": "What does CI/CD stand for?",
+                    "user_answer": "Continuous Integration/Continuous Development",
+                    "correct_answer": "Continuous Integration/Continuous Deployment",
+                    "correct": false,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which tool is commonly used for container orchestration?",
+                    "user_answer": "Kubernetes",
+                    "correct_answer": "Kubernetes",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which version control system is most widely used in DevOps?",
+                    "user_answer": "Git",
+                    "correct_answer": "Git",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ],
+            "date": "2025-02-14"
+        },
+        {
+            "score": 15,
+            "results": [
+                {
+                    "question": "Which version control system is most widely used in DevOps?",
+                    "user_answer": "Git",
+                    "correct_answer": "Git",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which tool is commonly used for container orchestration?",
+                    "user_answer": "Kubernetes",
+                    "correct_answer": "Kubernetes",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "What does CI/CD stand for?",
+                    "user_answer": "Continuous Improvement/Continuous Delivery",
+                    "correct_answer": "Continuous Integration/Continuous Deployment",
+                    "correct": false,
+                    "subjective": ""
+                }
+            ],
+            "date": "2025-02-14"
+        },
+        {
+            "score": 15,
+            "date": "2025-02-15 21:25:25",
+            "results": [
+                {
+                    "question": "Which version control system is most widely used in DevOps?",
+                    "user_answer": "Git",
+                    "correct_answer": "Git",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "What does CI/CD stand for?",
+                    "user_answer": "Continuous Improvement/Continuous Delivery",
+                    "correct_answer": "Continuous Integration/Continuous Deployment",
+                    "correct": false,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which tool is commonly used for container orchestration?",
+                    "user_answer": "Kubernetes",
+                    "correct_answer": "Kubernetes",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ]
+        },
+        {
+            "score": 15,
+            "date": "2025-02-15 21:39:40",
+            "results": [
+                {
+                    "question": "What does CI/CD stand for?",
+                    "user_answer": "Continuous Improvement/Continuous Delivery",
+                    "correct_answer": "Continuous Integration/Continuous Deployment",
+                    "correct": false,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which tool is commonly used for container orchestration?",
+                    "user_answer": "Kubernetes",
+                    "correct_answer": "Kubernetes",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which version control system is most widely used in DevOps?",
+                    "user_answer": "Git",
+                    "correct_answer": "Git",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ]
+        },
+        {
+            "score": 30,
+            "date": "2025-02-15 21:44:52",
+            "results": [
+                {
+                    "question": "Which version control system is most widely used in DevOps?",
+                    "user_answer": "Git",
+                    "correct_answer": "Git",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "What does CI/CD stand for?",
+                    "user_answer": "Continuous Integration/Continuous Deployment",
+                    "correct_answer": "Continuous Integration/Continuous Deployment",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which tool is commonly used for container orchestration?",
+                    "user_answer": "Kubernetes",
+                    "correct_answer": "Kubernetes",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ]
+        },
+        {
+            "score": 30,
+            "date": "2025-02-15 21:51:32",
+            "results": [
+                {
+                    "question": "What does CI/CD stand for?",
+                    "user_answer": "Continuous Integration/Continuous Deployment",
+                    "correct_answer": "Continuous Integration/Continuous Deployment",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which version control system is most widely used in DevOps?",
+                    "user_answer": "Git",
+                    "correct_answer": "Git",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which tool is commonly used for container orchestration?",
+                    "user_answer": "Kubernetes",
+                    "correct_answer": "Kubernetes",
+                    "correct": true,
+                    "subjective": ""
+                }
+            ]
+        },
+        {
+            "score": 30,
+            "date": "2025-02-15 21:55:55",
+            "results": [
+                {
+                    "question": "What does CI/CD stand for?",
+                    "user_answer": "Continuous Integration/Continuous Deployment",
+                    "correct_answer": "Continuous Integration/Continuous Deployment",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which tool is commonly used for container orchestration?",
+                    "user_answer": "Kubernetes",
+                    "correct_answer": "Kubernetes",
+                    "correct": true,
+                    "subjective": ""
+                },
+                {
+                    "question": "Which version control system is most widely used in DevOps?",
+                    "user_answer": "Git",
+                    "correct_answer": "Git",
                     "correct": true,
                     "subjective": ""
                 }

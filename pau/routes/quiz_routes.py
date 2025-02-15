@@ -1,6 +1,7 @@
 import os
 import json
 import random
+import datetime
 from flask import Blueprint, request, jsonify, render_template
 
 quiz_bp = Blueprint("quiz", __name__)
@@ -68,20 +69,27 @@ def submit_quiz():
 
     if not module or not answers:
         return jsonify({"error": "Invalid submission data"}), 400
+    
+    # Calculate the score
+    score = sum(10 if answer.get("correct") else -5 for answer in answers)
 
-    # Optionally, recalculate the score
-    score = 0
-    for answer in answers:
-        if answer.get("correct"):
-            score += 10
-        else:
-            score -= 5
+    # Get current timestamp (YYYY-MM-DD HH:MM:SS format)
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    # Save the result to the scores file
+
+    # Load existing scores
     scores = load_scores()
     if module not in scores:
         scores[module] = []
-    scores[module].append({"score": score, "results": answers})
+
+    # Append new score with timestamp
+    scores[module].append({
+        "score": score,
+        "date": timestamp,  # Save timestamp
+        "results": answers
+    })
+
+    # Save updated scores
     save_scores(scores)
 
-    return jsonify({"score": score, "results": answers})
+    return jsonify({"score": score, "date": timestamp, "results": answers})
