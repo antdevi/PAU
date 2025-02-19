@@ -12,6 +12,7 @@
     <button onclick="startQuiz('python')">Python</button>
     <button onclick="startQuiz('aws')">AWS</button>
     <button onclick="startQuiz('devops')">DevOps</button>
+    <button onclick="startQuiz('projectmanagement')">Project Management</button>
     <br><br>
     <button onclick="goBack()">Back</button>
   </div>
@@ -24,7 +25,7 @@
       window.location.href = `/quiz/${module}`;
     }
     function goBack() {
-      window.location.href = "http://127.0.0.1:5000"; // Adjust if necessary
+      window.location.href = "http://localhost:32768/"; // Adjust if necessary
     }
   </script>
 </body>

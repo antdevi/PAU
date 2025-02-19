@@ -5,7 +5,7 @@ FROM python:3.11-slim-buster
 WORKDIR /app
 
 # Copy ONLY requirements.txt first (for better caching)
-COPY requirements.txt /app/
+COPY ../requirements.txt /app/
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -18,7 +18,7 @@ RUN python -m pip install --no-cache --upgrade pip \
     && python -m pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application files
-COPY . /app/
+COPY .. //app
 
 ENV LM_STUDIO_URL="http://host.docker.internal:1234/v1/chat/completions"
 
