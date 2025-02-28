@@ -27,25 +27,32 @@ def build_messages(history):
     """
     return [{"role": item.get("role", "user"), "content": item.get("message", "")} for item in history]
 
-def query_lm_studio(history):
+def query_openai(history):
     """
-    Send the full conversation history as context to LM Studio.
-    This example assumes that LM Studio’s API is similar to the OpenAI Chat API.
+    Send the full conversation history as context to OpenAI’s API.
     """
-    headers = {"Content-Type": "application/json"}
+    openai_api_key = Config.OPENAI_API_KEY  # Securely read API key
+    if not openai_api_key:
+        return "Error: OpenAI API key is missing."
+    
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {openai_api_key}",
+        }
+    
     messages = build_messages(history)
     payload = {
-        "model": "llama-3.2-1B",
+        "model": "gpt-4o-mini",
         "messages": messages
     }
     try:
-        response = requests.post(Config.LM_STUDIO_URL, headers=headers, json=payload)
+        response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
         if response.ok:
             data = response.json()
             # Assuming a response format: { "choices": [ { "message": { "content": "..." } } ] }
             return data["choices"][0]["message"]["content"]
         else:
-            return "Sorry, an error occurred while processing your request."
+            return f"API Error: {response.status_code} - {response.text}"
     except Exception as e:
         print("Exception:", e)
         return "Sorry, an exception occurred."
@@ -70,7 +77,7 @@ def chat():
     history.append({"role": "user", "message": user_message})
 
     # Get bot response using LM Studio with the updated context
-    bot_response = query_lm_studio(history)
+    bot_response = query_openai(history)
 
     # Append the bot's response (role 'assistant') to the history
     history.append({"role": "assistant", "message": bot_response})

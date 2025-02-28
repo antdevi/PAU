@@ -138,5 +138,53 @@
     {
         "role": "assistant",
         "message": "I think I can get it now: Good morning! It was nice chatting with you, Antara. Have a fantastic day and I hope your commute is smooth to the office today!"
+    },
+    {
+        "role": "user",
+        "message": "good morning"
+    },
+    {
+        "role": "assistant",
+        "message": "Good morning again! How are you today?"
+    },
+    {
+        "role": "user",
+        "message": "how are you doing"
+    },
+    {
+        "role": "assistant",
+        "message": "I'm just a program, so I don't have feelings, but I'm here and ready to help you! How about you? How are you doing today?"
+    },
+    {
+        "role": "user",
+        "message": "good morning"
+    },
+    {
+        "role": "assistant",
+        "message": "Error: OpenAI API key is missing."
+    },
+    {
+        "role": "user",
+        "message": "hello"
+    },
+    {
+        "role": "assistant",
+        "message": "Hello! How can I assist you today?"
+    },
+    {
+        "role": "user",
+        "message": "good morning"
+    },
+    {
+        "role": "assistant",
+        "message": "Good morning! How's your day going so far?"
+    },
+    {
+        "role": "user",
+        "message": "how are you doing"
+    },
+    {
+        "role": "assistant",
+        "message": "I'm here and ready to help! How about you? How's your day going?"
     }
 ]
