@@ -6,6 +6,7 @@ from flask import Blueprint, request, jsonify
 from pau.config import Config
 
 chat_bp = Blueprint("chat", __name__)
+NOTES_API_URL = "http://127.0.0.1:5000/notes/get"
 
 def load_history():
     """Load the chat history from the JSON file specified in Config."""
@@ -20,14 +21,39 @@ def save_history(history):
     with open(Config.CHAT_HISTORY_FILE, "w") as f:
         json.dump(history, f, indent=4)
 
-def build_messages(history):
+def get_relevant_notes(user_input):
+    """Fetch notes from API and find relevant topics based on user input."""
+    try:
+        response = requests.get(NOTES_API_URL)
+        if response.status_code != 200:
+            return []
+        all_notes = response.json()
+    except Exception as e:
+        print("Error fetching notes:", e)
+        return []
+
+    relevant_notes = []
+    keywords = set(user_input.lower().split())
+
+    for note in all_notes:
+        note_content = note.get("content", "").lower()
+        if any(keyword in note_content for keyword in keywords):
+            relevant_notes.append(note)
+
+    return relevant_notes[:3]  # Limit to top 3 notes
+
+def build_messages(history, notes):
     """
     Convert the stored history into a list of messages in the format
     expected by LM Studio.
     """
-    return [{"role": item.get("role", "user"), "content": item.get("message", "")} for item in history]
+    messages = [{"role": item.get("role", "user"), "content": item.get("message", "")} for item in history]
+    if notes:
+        note_content = "\n".join([f"{note['title']}: {note['content']}" for note in notes])
+        messages.insert(0, {"role": "system", "content": f"User notes:\n{note_content}"})
 
-def query_openai(history):
+    return messages
+def query_openai(history, notes):
     """
     Send the full conversation history as context to OpenAI’s API.
     """
@@ -40,7 +66,7 @@ def query_openai(history):
         "Authorization": f"Bearer {openai_api_key}",
         }
     
-    messages = build_messages(history)
+    messages = build_messages(history, notes)
     payload = {
         "model": "gpt-4o-mini",
         "messages": messages
@@ -73,11 +99,14 @@ def chat():
     # Load existing chat history
     history = load_history()
 
+    # Get relevant notes based on the user message
+    relevant_notes = get_relevant_notes(user_message)
+
     # Append the user's new message
     history.append({"role": "user", "message": user_message})
 
     # Get bot response using LM Studio with the updated context
-    bot_response = query_openai(history)
+    bot_response = query_openai(history, relevant_notes)
 
     # Append the bot's response (role 'assistant') to the history
     history.append({"role": "assistant", "message": bot_response})
@@ -85,4 +114,4 @@ def chat():
     # Save the updated chat history
     save_history(history)
 
-    return jsonify({"response": bot_response})
+    return jsonify({"response": bot_response, "format": "markdown"})

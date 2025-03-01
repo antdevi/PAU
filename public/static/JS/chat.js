@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const chatbox = document.getElementById("chatbox");
     const messageDiv = document.createElement("div");
     messageDiv.className = "message " + sender; // e.g., "message user" or "message bot"
-    messageDiv.textContent = message;
+    messageDiv.innerHTML = marked.parse(message);
     chatbox.appendChild(messageDiv);
   
     // Auto-scroll to the bottom of the chatbox.
@@ -44,9 +44,16 @@ document.addEventListener("DOMContentLoaded", function() {
     inputField.value = "";
   
     // Append a temporary message indicating that the bot is typing.
-    appendMessage("bot", "Bot is typing...");
+    const chatbox = document.getElementById("chatbox");
+    const typingMessage = document.createElement("div");
+    typingMessage.className = "message bot";
+    typingMessage.id = "typingIndicator"; // Add an ID to remove later
+    typingMessage.textContent = "Bot is typing...";
+    chatbox.appendChild(typingMessage);
   
-    // Send a POST request to the /chat endpoint.
+    // Auto-scroll to the bottom.
+    chatbox.scrollTop = chatbox.scrollHeight;
+
     // Adjust the URL if your blueprint URL prefix differs.
     fetch("/chat", {
       method: "POST",
@@ -63,28 +70,23 @@ document.addEventListener("DOMContentLoaded", function() {
       })
       .then(data => {
         // Remove the temporary "Bot is typing..." message.
-        const chatbox = document.getElementById("chatbox");
-        if (
-          chatbox.lastChild &&
-          chatbox.lastChild.textContent === "Bot is typing..."
-        ) {
-          chatbox.removeChild(chatbox.lastChild);
-        }
+        const typingIndicator = document.getElementById("typingIndicator");
+        if (typingIndicator) {
+          typingIndicator.remove();
+      }
         // Append the bot's actual response.
         appendMessage("bot", data.response);
       })
       .catch(error => {
         console.error("Error:", error);
-        // Update the temporary message with an error message.
-        const chatbox = document.getElementById("chatbox");
-        if (
-          chatbox.lastChild &&
-          chatbox.lastChild.textContent === "Bot is typing..."
-        ) {
-          chatbox.lastChild.textContent = "Error: Could not get response.";
+
+        // ✅ Replace "Bot is typing..." with an error message if the request fails.
+        const typingIndicator = document.getElementById("typingIndicator");
+        if (typingIndicator) {
+            typingIndicator.textContent = "Error: Could not get response.";
         }
-      });
-  }
+    });
+}
   function openTab(tabName) {
     // Hide all tab content sections
     let tabContents = document.querySelectorAll(".tab-content");

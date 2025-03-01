@@ -8,5 +8,6 @@ class Config:
     LOG_DIR = os.path.join(BASE_DIR, "../log")  # Store logs in the log/ folder
     CHAT_HISTORY_FILE = os.path.join(LOG_DIR, "chat_history.json")
     
+    NOTES_DIR = os.path.join(BASE_DIR, "notes")
     # OpenAI API Key (Read from Environment Variables)
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
