@@ -46,5 +46,13 @@
     {
         "role": "assistant",
         "message": "You mentioned earlier that you are not feeling well. It's important to take care of yourself, especially when preparing for something like AWS certification. Make sure to rest, stay hydrated, and consider taking breaks as needed. If there's anything specific you'd like help with, just let me know!"
+    },
+    {
+        "role": "user",
+        "message": "who am i?"
+    },
+    {
+        "role": "assistant",
+        "message": "You are a person preparing for an AWS certification exam and have interacted with me for assistance with that process. However, I don\u2019t have personal information about you beyond our conversation. If there\u2019s something specific you\u2019d like to share or discuss, feel free to let me know!"
     }
 ]

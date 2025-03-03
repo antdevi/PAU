@@ -269,3 +269,6 @@ function openSelectedNotes() {
 function revisionSection() {
   window.location.href = "/revision"; // Redirects to revision module selection page
 }
+function doittodayexam() {
+    window.location.href = "/doittoday"; // Redirects to doittoday.html
+}

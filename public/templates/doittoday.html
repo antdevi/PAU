@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Do it today</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/doittoday.css') }}">
+</head>
+<body>
+  <div id="doittodayexam-container">
+    <button onclick="startexam()">Start</button>
+    <button onclick="goBack()">Back</button>
+  </div>
+  <script>
+    function goBack() {
+        window.history.back();  // This takes the user back to the previous page
+    }
+    
+    function startexam() {
+        alert("Exam Starting... (You can load the questions here)");
+        // TODO: Fetch and load the quiz questions
+    }
+  </script>
+</body>
+</html>

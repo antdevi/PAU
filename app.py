@@ -17,5 +17,9 @@ def home():
 def serve_revision():
     return render_template("revision.html")
 
+@app.route('/doittoday')
+def doittoday():
+    return render_template("doittoday.html")
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
