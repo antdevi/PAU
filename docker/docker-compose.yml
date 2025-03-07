@@ -2,20 +2,28 @@ version: '3.8'
 
 services:
   app:
-    build: .
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: pau-app
     ports:
       - "5000:5000"
+    env_file:
+      - ../.env   # Load .env file
+    volumes:
+      - ../:/app
     depends_on:
       - db
-    environment:
-      - DATABASE_URL=postgresql://user:password@db:5432/pau_db
 
   db:
-    image: postgres:latest
+    image: postgres:13
+    container_name: pau-db
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: pau_db
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
