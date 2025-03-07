@@ -4,6 +4,8 @@ import json
 import requests
 from flask import Blueprint, request, jsonify
 from pau.config import Config
+from datetime import datetime
+
 
 chat_bp = Blueprint("chat", __name__)
 NOTES_API_URL = "http://127.0.0.1:5000/notes/get"
@@ -95,6 +97,7 @@ def chat():
         return jsonify({"error": "Missing 'message' parameter in JSON payload"}), 400
 
     user_message = data["message"]
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     # Load existing chat history
     history = load_history()
@@ -103,13 +106,13 @@ def chat():
     relevant_notes = get_relevant_notes(user_message)
 
     # Append the user's new message
-    history.append({"role": "user", "message": user_message})
+    history.append({"role": "user", "message": user_message, "timestamp": timestamp})
 
     # Get bot response using LM Studio with the updated context
     bot_response = query_openai(history, relevant_notes)
 
     # Append the bot's response (role 'assistant') to the history
-    history.append({"role": "assistant", "message": bot_response})
+    history.append({"role": "assistant", "message": bot_response, "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")})
 
     # Save the updated chat history
     save_history(history)

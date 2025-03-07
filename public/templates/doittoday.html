@@ -11,15 +11,73 @@
     <button onclick="startexam()">Start</button>
     <button onclick="goBack()">Back</button>
   </div>
+
+  <div id="quiz-container"></div>
+  <button id="submit-btn" onclick="submitQuiz()" style="display:none;">Submit</button>
+
+  <div id="score-container"></div> <!-- This ensures quiz questions can be displayed -->
+
   <script>
-    function goBack() {
-        window.history.back();  // This takes the user back to the previous page
-    }
-    
+    let quizData = [];
+
     function startexam() {
-        alert("Exam Starting... (You can load the questions here)");
-        // TODO: Fetch and load the quiz questions
+        fetchQuiz();
     }
-  </script>
+
+    function fetchQuiz() {
+        fetch('/openquiz/generate_quiz')
+            .then(response => response.json())
+            .then(data => {
+                console.log("Generated Questions:", data.quiz);
+                quizData = data.quiz;
+                displayQuiz(quizData);
+            })
+            .catch(error => console.error("Error fetching quiz:", error));
+    }
+
+    function displayQuiz(quizData) {
+        let container = document.getElementById("quiz-container");
+        container.innerHTML = "";
+
+        quizData.forEach((q, index) => {
+            let questionDiv = document.createElement("div");
+            questionDiv.innerHTML = `<p><b>${index + 1}. ${q.question}</b></p>`;
+
+            q.options.forEach(option => {
+                questionDiv.innerHTML += `
+                    <input type="radio" name="q${index}" value="${option.charAt(0)}"> ${option} <br>
+                `;
+            });
+
+            container.appendChild(questionDiv);
+        });
+
+        document.getElementById("submit-btn").style.display = "block";
+    }
+
+    function submitQuiz() {
+        let answers = {};
+        quizData.forEach((q, index) => {
+            let selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+            answers[q.question] = selectedOption ? selectedOption.value : null;
+        });
+
+        fetch('/openquiz/submit_quiz', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ answers: answers, quiz: quizData })
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("score-container").innerHTML = `<p>Score: ${data.score}</p>`;
+            console.log("Quiz Results:", data);
+        })
+        .catch(error => console.error("Error submitting quiz:", error));
+    }
+
+    function goBack() {
+        window.history.back();
+    }
+</script>
 </body>
 </html>

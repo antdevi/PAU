@@ -1,6 +1,7 @@
 import os
 import json
 from flask import Blueprint, request, jsonify
+from datetime import datetime
 
 notes_bp = Blueprint("notes", __name__)
 
@@ -24,7 +25,8 @@ def save_note():
     note = {
         "id": data.get("id"),
         "title": data.get("title"),
-        "content": data.get("content")
+        "content": data.get("content"),
+        "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
 
     with open(NOTES_FILE, "r+") as f:

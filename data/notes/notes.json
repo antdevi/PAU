@@ -1,1 +1,18 @@
-[]
+[
+    {
+        "id": 1741158285479,
+        "title": "TO DO LIST Today",
+        "content": "1) AWS Cloud Certification preparation for 1 hrs\n\n2) Developing the PAU application"
+    },
+    {
+        "id": 1741163801748,
+        "title": "AWS Solution Architecture Preparation",
+        "content": "1) This week I will finish AWS Cloud Practioner\n2)3weeks I will study for the certification \n3)I will also practice question on the certification exam"
+    },
+    {
+        "id": 1741327307426,
+        "title": "Introduction to Cloud Computing",
+        "content": "Servers are like computer they are used to run a heavy duty work.\n\ncloud is a remote infrastructure computing is compute resources.\n\nIAM Resources : Identity and Access Management, global services, two types of account root and user, groups are created to have same type of access, json documents give policies and group.",
+        "date": "2025-03-07 11:31:47"
+    }
+]
