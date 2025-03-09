@@ -24,4 +24,5 @@ def create_app():
     app.register_blueprint(notes_bp, url_prefix="/notes")
     app.register_blueprint(doittoday_bp, url_prefix='/openquiz')
     
+    
     return app

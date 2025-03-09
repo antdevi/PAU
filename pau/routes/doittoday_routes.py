@@ -21,6 +21,7 @@ doittoday_bp = Blueprint('doittoday', __name__)
 # File paths
 NOTES_FILE = "data/notes/notes.json"
 CHAT_HISTORY_FILE = "log/chat_history.json"
+USER_SCORES_FILE = "data/doittoday_scores.json"
 
 def load_json_file(file_path):
     """
@@ -128,6 +129,21 @@ def generate_quiz(quiz_topics, num_questions=20, max_retries=3):
             time.sleep(5)
 
     return [{"question": "Error occurred", "options": [], "correct_answer": "Unable to generate questions"}]
+def load_user_scores():
+    """Load user quiz scores from a JSON file."""
+    if not os.path.exists(USER_SCORES_FILE):
+        return []
+    
+    with open(USER_SCORES_FILE, "r", encoding="utf-8") as file:
+        try:
+            return json.load(file)
+        except json.JSONDecodeError:
+            return []
+
+def save_user_scores(data):
+    """Save quiz results to a JSON file."""
+    with open(USER_SCORES_FILE, "w", encoding="utf-8") as file:
+        json.dump(data, file, indent=4)
 
 @doittoday_bp.route('/generate_quiz', methods=['GET'])
 def get_quiz():
@@ -142,14 +158,45 @@ def submit_quiz():
     data = request.json
     user_answers = data.get("answers", {})
     quiz = data.get("quiz", [])
-
+    if not quiz:
+        return jsonify({"error": "No quiz data provided"}), 400
     score = 0
+    quiz_results = []
     for question_data in quiz:
+
+        question_text = question_data["question"]
         correct_answer = question_data["correct_answer"]
         user_answer = user_answers.get(question_data["question"], None)
 
-        if user_answer == correct_answer:
+        is_correct = user_answer == correct_answer
+        if is_correct:
             score += 1
+        
+        quiz_results.append({
+            "question": question_text,
+            "user_answer": user_answer,
+            "correct_answer": correct_answer,
+            "correct": is_correct
+        })
 
-    return jsonify({"score": f"{score}/{len(quiz)}"})
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+    # Load existing scores
+    user_scores = load_user_scores()
+
+    # Append new results
+    user_scores.append({
+        "date": timestamp,
+        "score": score,
+        "total_questions": len(quiz),
+        "results": quiz_results
+    })
+
+    # Save updated scores
+    save_user_scores(user_scores)
+
+    return jsonify({
+        "score": f"{score}/{len(quiz)}",
+        "date": timestamp,
+        "results": quiz_results
+    })
