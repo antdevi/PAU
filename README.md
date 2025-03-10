@@ -1,50 +1,54 @@
+<<<<<<< HEAD
 ##PAU - Personal Assistant for Upskilling
 
 Overview
+=======
+# **PAU - Personal Assistant for Upskilling**
+>>>>>>> b1b780eb (Updated the readme file)
 
 PAU (Personal Assistant for Upskilling) is a web application designed to help users enhance their skills through interactive quizzes, note management, chat assistance, and progress tracking. This project integrates multiple functionalities, including AI-powered responses, personalized learning, and progress visualization.
 
-Features
+#### **Features**
 
-1. Quiz System
+##### 1. **Quiz System**
 
-Module-Based Quizzes: Users can select different learning modules (e.g., Python, AWS, DevOps, Networking) and attempt quizzes.
+**Module-Based Quizzes**: Users can select different learning modules (e.g., Python, AWS, DevOps, Networking) and attempt quizzes.
 
-Randomized Questions: Questions are served randomly from a JSON dataset.
+**Randomized Questions**: Questions are served randomly from a JSON dataset.
 
-Scoring Mechanism: Scores are calculated based on correct and incorrect answers, with timestamps recorded for tracking progress.
+**Scoring Mechanism**: Scores are calculated based on correct and incorrect answers, with timestamps recorded for tracking progress.
 
-Progress Graphs: Generates and updates progress graphs based on quiz results.
+**Progress Graphs**: Generates and updates progress graphs based on quiz results.
 
-2. Chat Assistance
+##### 2. **Chat Assistance**
 
-AI-Powered Responses: The chatbot provides contextual responses by retrieving relevant notes and past chat history.
+**AI-Powered Responses**: The chatbot provides contextual responses by retrieving relevant notes and past chat history.
 
-Note Integration: Fetches stored notes to enhance personalized recommendations.
+**Note Integration**: Fetches stored notes to enhance personalized recommendations.
 
-Conversation Logging: Stores chat history for future reference and better AI interaction.
+**Conversation Logging**: Stores chat history for future reference and better AI interaction.
 
-3. Notes Management
+##### **3. Notes Management**
 
-Create, Save, and Retrieve Notes: Users can store learning notes and retrieve them when needed.
+**Create, Save, and Retrieve Notes**: Users can store learning notes and retrieve them when needed.
 
-Topic-Based Organization: Helps in structuring notes for easy reference.
+**Topic-Based Organization**: Helps in structuring notes for easy reference.
 
-Deletion and Update Functionality: Enables users to manage notes effectively.
+**Deletion and Update Functionality**: Enables users to manage notes effectively.
 
-4. Progress Tracking
+##### **4. Progress Tracking**
 
-Visualization of Quiz Performance: Generates progress graphs using Matplotlib.
+**Visualization of Quiz Performance**: Generates progress graphs using Matplotlib.
 
-Stores Quiz Results: Tracks scores over time for each module.
+**Stores Quiz Results**: Tracks scores over time for each module.
 
-5. Daily Learning Tasks
+##### **5. Daily Learning Tasks**
 
-Extracts Topics from Chat History & Notes: Uses AI to generate quizzes based on the user’s recent learning topics.
+**Extracts Topics from Chat History & Notes**: Uses AI to generate quizzes based on the user’s recent learning topics.
 
-Automated Quiz Generation: AI generates MCQs from the user’s recent activities.
+**Automated Quiz Generation**: AI generates MCQs from the user’s recent activities.
 
-App Interface
+#### **App Interface**
 
 Here is a preview of the PAU application:
 
@@ -67,11 +71,12 @@ Playground Section:
    -If you click on Revision Section:
 
       ![PAU App Screenshot](public/images/PAU_App4.jpg)
+      
 
 
-Installation
+#### **Installation**
 
-Prerequisites
+##### **Prerequisites**
 
 Python 3.8+
 
@@ -81,7 +86,7 @@ OpenAI API Key (for AI-related functionalities)
 
 dotenv (for managing environment variables)
 
-Setup
+##### **Setup**
 
 Clone the repository:
 
@@ -105,7 +110,7 @@ Run the application:
 
 flask run
 
-Project Structure
+#### **Project Structure**
 
 PAU/
 │── app/
@@ -123,12 +128,12 @@ PAU/
 │   │── question_quiz.json        # Quiz questions database
 │   │── scores.json               # Stores quiz scores
 |   │── doittoday_scores.json     # Stores scores on the topics studied today
-│── docker/                       #Store the docker files
+│── docker/                        # Stores the docker files
 |   │── DockerFile
 |   │── docker-compose.yml
 |   │── .dockerignore  
-│── generated_graphs\             #Updated graph of progress is stored here
-|   │──progress_graphs\          
+│── generated_graphs/            # Updated graph of progress is stored here
+|   │──progress_graphs/          
 │── public/
 │   │── templates/                # HTML templates
 │   │── static/                   # CSS, JS, images
@@ -138,7 +143,7 @@ PAU/
 │── requirements.txt              # Required dependencies
 │── README.md                     # Project documentation
 
-API Endpoints
+#### **API Endpoints**
 
 Quiz Routes
 
@@ -174,20 +179,20 @@ GET /generate_quiz - Generates AI-powered quizzes based on recent learning topic
 
 POST /submit_quiz - Submits quiz answers and returns scores.
 
-Future Enhancements
+#### **Future Enhancements**
 
-User Authentication: Implement user logins for personalized tracking.
+**User Authentication**: Implement user logins for personalized tracking.
 
-Leaderboard System: Compare scores with other users.
+**Leaderboard System**: Compare scores with other users.
 
-AI-based Personalized Learning Path: Dynamically suggest learning modules.
+**AI-based Personalized Learning Path**: Dynamically suggest learning modules.
 
-Integration with Cloud Storage: Sync progress and notes across devices.
+**Integration with Cloud Storage**: Sync progress and notes across devices.
 
-Contributing
+#### **Contributing**
 
 Contributions are welcome! Feel free to open issues or submit pull requests.
 
-License
+#### **License**
 
 This project is licensed under the MIT License.
