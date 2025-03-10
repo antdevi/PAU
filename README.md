@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-##PAU - Personal Assistant for Upskilling
-
-Overview
-=======
 # **PAU - Personal Assistant for Upskilling**
->>>>>>> b1b780eb (Updated the readme file)
 
 PAU (Personal Assistant for Upskilling) is a web application designed to help users enhance their skills through interactive quizzes, note management, chat assistance, and progress tracking. This project integrates multiple functionalities, including AI-powered responses, personalized learning, and progress visualization.
 
@@ -70,7 +64,8 @@ Playground Section:
 
    -If you click on Revision Section:
 
-      ![PAU App Screenshot](public/images/PAU_App4.jpg)
+      ![image](https://github.com/user-attachments/assets/9dffd8ec-01e4-4207-ba01-68235a6a2623)
+
       
 
 
