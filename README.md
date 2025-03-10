@@ -99,7 +99,7 @@ Run the application:
 flask run
 
 #### **Project Structure**
-
+```
 PAU/
 │── app/
 │   │── routes/
@@ -108,29 +108,29 @@ PAU/
 │   │   │── note_routes.py        # Handles notes creation and retrieval
 │   │   │── progress_routes.py    # Generates progress graphs
 │   │   │── doittoday_routes.py   # Generates daily learning quizzes
-│   │── config.py                  # Application configurations
-│   │── __init__.py                 # Flask app initialization
+│   │── config.py                 # Application configurations
+│   │── __init__.py               # Flask app initialization
 │── data/
-|   │── notes/                    # To store the notes in the folder
-|   |  │── notes.json
+│   │── notes/                    # To store the notes in the folder
+│   │   │── notes.json             # Stores user notes
 │   │── question_quiz.json        # Quiz questions database
 │   │── scores.json               # Stores quiz scores
-|   │── doittoday_scores.json     # Stores scores on the topics studied today
-│── docker/                        # Stores the docker files
-|   │── DockerFile
-|   │── docker-compose.yml
-|   │── .dockerignore  
-│── generated_graphs/            # Updated graph of progress is stored here
-|   │──progress_graphs/          
+│   │── doittoday_scores.json     # Stores scores on the topics studied today
+│── docker/                       # Stores Docker-related files
+│   │── DockerFile
+│   │── docker-compose.yml
+│── .dockerignore
+│── generated_graphs/             # Updated graphs of progress are stored here
+│── progress_graphs/
 │── public/
 │   │── templates/                # HTML templates
 │   │── static/                   # CSS, JS, images
 │── log/                          # Stores chat history logs
-│── env                          # Environment variables
-│── app.py                       # Main file to run the application
+│── env/                          # Environment variables
+│── app.py                        # Main file to run the application
 │── requirements.txt              # Required dependencies
 │── README.md                     # Project documentation
-
+```
 #### **API Endpoints**
 
 Quiz Routes
