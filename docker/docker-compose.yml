@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     build:
@@ -11,21 +9,6 @@ services:
     env_file:
       - ../.env   # Load .env file
     volumes:
-      - ../:/app
-    depends_on:
-      - db
-
-  db:
-    image: postgres:13
-    container_name: pau-db
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydb
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-volumes:
-  postgres_data:
+      - ../data:/app/data  # Mount only the data folder (to persist data)
+      - ../logs:/app/logs  # Mount logs separately
+    restart: always

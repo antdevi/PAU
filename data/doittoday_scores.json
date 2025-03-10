@@ -1,0 +1,269 @@
+[
+    {
+        "date": "2025-03-10 10:12:51",
+        "score": 0,
+        "total_questions": 1,
+        "results": [
+            {
+                "question": "Error occurred",
+                "user_answer": null,
+                "correct_answer": "Unable to generate questions",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "date": "2025-03-10 10:42:33",
+        "score": 15,
+        "total_questions": 20,
+        "results": [
+            {
+                "question": "What is the purpose of IAM in AWS?",
+                "user_answer": "B",
+                "correct_answer": "B",
+                "correct": true
+            },
+            {
+                "question": "Which of the following is an example of a global service in AWS?",
+                "user_answer": "C",
+                "correct_answer": "C",
+                "correct": true
+            },
+            {
+                "question": "What is the main function of IAM Roles?",
+                "user_answer": "C",
+                "correct_answer": "C",
+                "correct": true
+            },
+            {
+                "question": "Which IAM feature allows temporary access?",
+                "user_answer": "A",
+                "correct_answer": "C",
+                "correct": false
+            },
+            {
+                "question": "What is the format used for writing IAM policies?",
+                "user_answer": "B",
+                "correct_answer": "B",
+                "correct": true
+            },
+            {
+                "question": "What is the benefit of using AWS-managed policies?",
+                "user_answer": "C",
+                "correct_answer": "C",
+                "correct": true
+            },
+            {
+                "question": "Which type of user is considered the most privileged in AWS?",
+                "user_answer": "B",
+                "correct_answer": "B",
+                "correct": true
+            },
+            {
+                "question": "What is MFA in the context of AWS IAM?",
+                "user_answer": "A",
+                "correct_answer": "A",
+                "correct": true
+            },
+            {
+                "question": "Which of these is NOT a type of IAM policy?",
+                "user_answer": "C",
+                "correct_answer": "C",
+                "correct": true
+            },
+            {
+                "question": "How can AWS IAM enhance security?",
+                "user_answer": "C",
+                "correct_answer": "C",
+                "correct": true
+            },
+            {
+                "question": "What is the primary use of IAM Groups?",
+                "user_answer": "B",
+                "correct_answer": "B",
+                "correct": true
+            },
+            {
+                "question": "What does the IAM Access Advisor provide?",
+                "user_answer": "B",
+                "correct_answer": "B",
+                "correct": true
+            },
+            {
+                "question": "Which of the following can be attached to an IAM role?",
+                "user_answer": "A",
+                "correct_answer": "B",
+                "correct": false
+            },
+            {
+                "question": "What is the purpose of an IAM Credential Report?",
+                "user_answer": "B",
+                "correct_answer": "B",
+                "correct": true
+            },
+            {
+                "question": "What is an example of an AWS-managed policy?",
+                "user_answer": "B",
+                "correct_answer": "A",
+                "correct": false
+            },
+            {
+                "question": "What is a key benefit of using IAM roles for EC2 instances?",
+                "user_answer": "B",
+                "correct_answer": "B",
+                "correct": true
+            },
+            {
+                "question": "Which IAM feature helps in tracking the last sign-in time of users?",
+                "user_answer": "A",
+                "correct_answer": "B",
+                "correct": false
+            },
+            {
+                "question": "How can you grant access to an S3 bucket using IAM?",
+                "user_answer": "B",
+                "correct_answer": "B",
+                "correct": true
+            },
+            {
+                "question": "What is a 'principal' in AWS IAM?",
+                "user_answer": "B",
+                "correct_answer": "B",
+                "correct": true
+            },
+            {
+                "question": "What is the effect of an explicit 'Deny' in an IAM policy?",
+                "user_answer": "D",
+                "correct_answer": "A",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "date": "2025-03-10 10:42:37",
+        "score": 15,
+        "total_questions": 20,
+        "results": [
+            {
+                "question": "What is the purpose of IAM in AWS?",
+                "user_answer": "B",
+                "correct_answer": "B",
+                "correct": true
+            },
+            {
+                "question": "Which of the following is an example of a global service in AWS?",
+                "user_answer": "C",
+                "correct_answer": "C",
+                "correct": true
+            },
+            {
+                "question": "What is the main function of IAM Roles?",
+                "user_answer": "C",
+                "correct_answer": "C",
+                "correct": true
+            },
+            {
+                "question": "Which IAM feature allows temporary access?",
+                "user_answer": "A",
+                "correct_answer": "C",
+                "correct": false
+            },
+            {
+                "question": "What is the format used for writing IAM policies?",
+                "user_answer": "B",
+                "correct_answer": "B",
+                "correct": true
+            },
+            {
+                "question": "What is the benefit of using AWS-managed policies?",
+                "user_answer": "C",
+                "correct_answer": "C",
+                "correct": true
+            },
+            {
+                "question": "Which type of user is considered the most privileged in AWS?",
+                "user_answer": "B",
+                "correct_answer": "B",
+                "correct": true
+            },
+            {
+                "question": "What is MFA in the context of AWS IAM?",
+                "user_answer": "A",
+                "correct_answer": "A",
+                "correct": true
+            },
+            {
+                "question": "Which of these is NOT a type of IAM policy?",
+                "user_answer": "C",
+                "correct_answer": "C",
+                "correct": true
+            },
+            {
+                "question": "How can AWS IAM enhance security?",
+                "user_answer": "C",
+                "correct_answer": "C",
+                "correct": true
+            },
+            {
+                "question": "What is the primary use of IAM Groups?",
+                "user_answer": "B",
+                "correct_answer": "B",
+                "correct": true
+            },
+            {
+                "question": "What does the IAM Access Advisor provide?",
+                "user_answer": "B",
+                "correct_answer": "B",
+                "correct": true
+            },
+            {
+                "question": "Which of the following can be attached to an IAM role?",
+                "user_answer": "A",
+                "correct_answer": "B",
+                "correct": false
+            },
+            {
+                "question": "What is the purpose of an IAM Credential Report?",
+                "user_answer": "B",
+                "correct_answer": "B",
+                "correct": true
+            },
+            {
+                "question": "What is an example of an AWS-managed policy?",
+                "user_answer": "B",
+                "correct_answer": "A",
+                "correct": false
+            },
+            {
+                "question": "What is a key benefit of using IAM roles for EC2 instances?",
+                "user_answer": "B",
+                "correct_answer": "B",
+                "correct": true
+            },
+            {
+                "question": "Which IAM feature helps in tracking the last sign-in time of users?",
+                "user_answer": "A",
+                "correct_answer": "B",
+                "correct": false
+            },
+            {
+                "question": "How can you grant access to an S3 bucket using IAM?",
+                "user_answer": "B",
+                "correct_answer": "B",
+                "correct": true
+            },
+            {
+                "question": "What is a 'principal' in AWS IAM?",
+                "user_answer": "B",
+                "correct_answer": "B",
+                "correct": true
+            },
+            {
+                "question": "What is the effect of an explicit 'Deny' in an IAM policy?",
+                "user_answer": "D",
+                "correct_answer": "A",
+                "correct": false
+            }
+        ]
+    }
+]

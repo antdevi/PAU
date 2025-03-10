@@ -10,10 +10,12 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
-# Initialize OpenAI client
-client = OpenAI(
-    api_key=os.environ.get("OPENAI_API_KEY")
-)
+openai_api_key = os.getenv("OPENAI_API_KEY")
+if not openai_api_key:
+    raise ValueError("❌ OpenAI API Key is missing. Check your .env file!")
+
+# ✅ Initialize OpenAI Client
+client = OpenAI(api_key=openai_api_key)
 
 # Define Blueprint
 doittoday_bp = Blueprint('doittoday', __name__)
@@ -75,16 +77,8 @@ def extract_today_topics():
     combined_topics = today_topics.union(today_chats)
     return list(combined_topics) if combined_topics else ["General Knowledge"]
 
-def generate_quiz(quiz_topics, num_questions=20, max_retries=3):
-    """
-    Generate multiple-choice quiz questions based on topics and chat history.
-    
-    :param topics: List of topics to generate questions from.
-    :param chat_history: Recent chat history to inform question generation.
-    :param num_questions: Number of questions to generate.
-    :param max_retries: Maximum retries in case of API failure.
-    :return: List of MCQs with questions, options, and answers.
-    """
+def generate_quiz(quiz_topics, num_questions=15, max_retries=3):
+    """Generate multiple-choice quiz questions based on topics and chat history."""
     for attempt in range(max_retries):
         try:
             prompt = f"""
@@ -96,39 +90,45 @@ def generate_quiz(quiz_topics, num_questions=20, max_retries=3):
             - Specify the correct answer
             - Follow this JSON format:
             [
-                {{"question": "What is AWS?", "options": ["A. Cloud Service", "B. Database", "C. Storage Device", "D. Network"], "correct_answer": "A"}},
-                ...
+                {{"question": "What is AWS?", "options": ["A. Cloud Service", "B. Database", "C. Storage Device", "D. Network"], "correct_answer": "A"}}
             ]
             """
 
             response = client.chat.completions.create(
                 model="gpt-4o",
                 messages=[
-                    {"role": "system", "content": "You are an AI that generates multiple-choice questions based on recent notes and  chat history."},
+                    {"role": "system", "content": "You are an AI that generates multiple-choice questions based on recent notes and chat history."},
                     {"role": "user", "content": prompt}
                 ],
                 temperature=0.7,
-                timeout=60  # Prevents indefinite waiting
+                timeout=60
             )
 
             quiz_content = response.choices[0].message.content.strip()
+            print("🟢 Raw OpenAI response:", quiz_content)  # Debugging
 
-            try:
-                quiz = json.loads(quiz_content)  # Parse JSON response
-                if isinstance(quiz, list) and all("question" in q and "options" in q and "correct_answer" in q for q in quiz):
-                    return quiz
-                else:
-                    print("Invalid JSON response format. Retrying...")
-                    continue  # Retry if format is incorrect
-            except json.JSONDecodeError:
-                print("JSON parsing error. Retrying...")
-                continue  # Retry if parsing fails
+            # Ensure JSON-like response
+            if not quiz_content.startswith("[") or not quiz_content.endswith("]"):
+                print("⚠️ OpenAI returned invalid JSON. Retrying...")
+                continue
 
+            quiz = json.loads(quiz_content)  # Parse JSON response
+            if isinstance(quiz, list) and all("question" in q and "options" in q and "correct_answer" in q for q in quiz):
+                return quiz
+            else:
+                print("Invalid JSON structure from OpenAI:", quiz_content)
+                continue  # Retry if format is incorrect
+
+        except json.JSONDecodeError as e:
+            print(f"JSON parsing error: {e}. Raw response:", quiz_content)
+            continue  # Retry if parsing fails
         except Exception as e:
             print(f"Error generating quiz: {e}. Retrying in 5 seconds...")
             time.sleep(5)
 
-    return [{"question": "Error occurred", "options": [], "correct_answer": "Unable to generate questions"}]
+    print("⚠️ OpenAI failed to generate valid questions after retries.")
+    return [{"question": "Error occurred", "options": ["A", "B", "C", "D"], "correct_answer": "A"}]  # Prevent crashes
+
 def load_user_scores():
     """Load user quiz scores from a JSON file."""
     if not os.path.exists(USER_SCORES_FILE):
