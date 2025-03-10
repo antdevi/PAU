@@ -62,13 +62,6 @@ Playground Section:
 
       ![PAU App Screenshot](public/images/PAU_App3.jpg)
 
-   -If you click on Revision Section:
-
-      ![image](https://github.com/user-attachments/assets/9dffd8ec-01e4-4207-ba01-68235a6a2623)
-
-      
-
-
 #### **Installation**
 
 ##### **Prerequisites**
