@@ -265,5 +265,31 @@
                 "correct": false
             }
         ]
+    },
+    {
+        "date": "2025-03-10 05:40:16",
+        "score": 0,
+        "total_questions": 1,
+        "results": [
+            {
+                "question": "Error occurred",
+                "user_answer": null,
+                "correct_answer": "A",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "date": "2025-03-10 05:40:20",
+        "score": 1,
+        "total_questions": 1,
+        "results": [
+            {
+                "question": "Error occurred",
+                "user_answer": "A",
+                "correct_answer": "A",
+                "correct": true
+            }
+        ]
     }
 ]
