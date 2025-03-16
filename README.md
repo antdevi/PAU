@@ -1,6 +1,5 @@
 
-# ##**PAU - Personal Assistant for Upskilling**
->>>>>>> fcb1844d (Authentication Page developed)
+**PAU - Personal Assistant for Upskilling**
 
 PAU (Personal Assistant for Upskilling) is a web application designed to help users enhance their skills through interactive quizzes, note management, chat assistance, and progress tracking. This project integrates multiple functionalities, including AI-powered responses, personalized learning, and progress visualization.
 
