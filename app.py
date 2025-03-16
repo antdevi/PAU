@@ -1,17 +1,20 @@
 # app.py
 import logging
 from  pau import create_app # Adjust the import based on your package structure
-from flask import render_template
+from flask import Flask, render_template
+import os
 
 app = create_app()
+
+app.secret_key = os.urandom(24)
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
 
-@app.route("/")
+@app.route("/", methods=['GET'])
 def home():
     app.logger.debug("Home route accessed")
-    return render_template("chat.html")
+    return render_template("auth.html")
 
 @app.route("/revision")
 def serve_revision():

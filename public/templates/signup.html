@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAU - Sign Up</title>
+    <link rel="stylesheet" href="/static/CSS/auth.css">
+</head>
+<body>
+    <div class="login-container">
+        <h1>Create an Account</h1>
+        <p>Join PAU and unlock your potential</p>
+        <form method="POST" action="{{ url_for('auth.register') }}">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+            <button type="submit" class="link-button" a href="/">Sign Up</button>
+        </form>
+        <div class="links">
+            <a href="/">Already have an account? Login</a>
+        </div>
+    </div>
+</body>
+</html>

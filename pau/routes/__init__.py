@@ -7,6 +7,7 @@ from pau.routes.note_routes import notes_bp
 from pau.routes.quiz_routes import quiz_bp
 from pau.routes.progress_routes import progress_bp
 from pau.routes.doittoday_routes import doittoday_bp 
+from pau.routes.auth_routes import auth_bp
 
 
 def create_app():
@@ -23,6 +24,6 @@ def create_app():
     app.register_blueprint(progress_bp)
     app.register_blueprint(notes_bp, url_prefix="/notes")
     app.register_blueprint(doittoday_bp, url_prefix='/openquiz')
-    
+    app.register_blueprint(auth_bp, url_prefix="/auth")
     
     return app

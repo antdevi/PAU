@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # **PAU - Personal Assistant for Upskilling**
+=======
+# ##**PAU - Personal Assistant for Upskilling**
+>>>>>>> fcb1844d (Authentication Page developed)
 
 PAU (Personal Assistant for Upskilling) is a web application designed to help users enhance their skills through interactive quizzes, note management, chat assistance, and progress tracking. This project integrates multiple functionalities, including AI-powered responses, personalized learning, and progress visualization.
 
@@ -62,6 +66,10 @@ Playground Section:
 
       ![PAU App Screenshot](public/images/PAU_App3.jpg)
 
+<<<<<<< HEAD
+=======
+   
+>>>>>>> fcb1844d (Authentication Page developed)
 #### **Installation**
 
 ##### **Prerequisites**
@@ -99,6 +107,7 @@ Run the application:
 flask run
 
 #### **Project Structure**
+<<<<<<< HEAD
 ```
 PAU/
 │── app/
@@ -131,6 +140,10 @@ PAU/
 │── requirements.txt              # Required dependencies
 │── README.md                     # Project documentation
 ```
+=======
+
+``` PAU/ │── app/ │ │── routes/ │ │ │── quiz_routes.py # Handles quiz logic │ │ │── chat_routes.py # Manages chatbot and history │ │ │── note_routes.py # Handles notes creation and retrieval │ │ │── progress_routes.py # Generates progress graphs │ │ │── doittoday_routes.py # Generates daily learning quizzes │ │── config.py # Application configurations │ │── __init__.py # Flask app initialization │── data/ │ │── notes/ # To store the notes in the folder │ │ │── notes.json # Stores user notes │ │── question_quiz.json # Quiz questions database │ │── scores.json # Stores quiz scores │ │── doittoday_scores.json # Stores scores on the topics studied today │── docker/ # Stores Docker-related files │ │── DockerFile │ │── docker-compose.yml │── .dockerignore │── generated_graphs/ # Updated graphs of progress are stored here │── progress_graphs/ │── public/ │ │── templates/ # HTML templates │ │── static/ # CSS, JS, images │── log/ # Stores chat history logs │── env/ # Environment variables │── app.py # Main file to run the application │── requirements.txt # Required dependencies │── README.md # Project documentation ```
+>>>>>>> fcb1844d (Authentication Page developed)
 #### **API Endpoints**
 
 Quiz Routes

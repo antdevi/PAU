@@ -2,12 +2,13 @@
 import os
 import json
 import requests
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, session, redirect, url_for, flash, render_template
+
 from pau.config import Config
 from datetime import datetime
 
 
-chat_bp = Blueprint("chat", __name__)
+chat_bp = Blueprint("chat", __name__, template_folder="templates")
 NOTES_API_URL = "http://127.0.0.1:5000/notes/get"
 
 def load_history():
@@ -84,6 +85,14 @@ def query_openai(history, notes):
     except Exception as e:
         print("Exception:", e)
         return "Sorry, an exception occurred."
+
+@chat_bp.route("/chat", methods=["GET"])
+def chat_page():
+    """Serve the PAU Chat Page after login."""
+    if "user" not in session:
+        flash("Please log in first.", "warning")
+        return redirect(url_for("auth.home"))  # Redirect to login if not authenticated
+    return render_template("chat.html")
 
 @chat_bp.route("/chat", methods=["POST"])
 def chat():

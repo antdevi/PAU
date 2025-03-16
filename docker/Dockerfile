@@ -5,7 +5,7 @@ FROM python:3.11-slim-buster
 WORKDIR /app
 
 # Copy ONLY requirements.txt first (better caching)
-COPY ../requirements.txt /app/requirements.txt
+COPY requirements.txt /app/requirements.txt
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \

@@ -5,9 +5,9 @@ services:
       dockerfile: docker/Dockerfile
     container_name: pau-app
     ports:
-      - "5000:5000"
+      - "80:5000"
     env_file:
-      - ../.env   # Load .env file
+      - .env   # Load .env file
     volumes:
       - ../data:/app/data  # Mount only the data folder (to persist data)
       - ../logs:/app/logs  # Mount logs separately

@@ -16,8 +16,8 @@
   <div class="taskbar" role="banner">
     <div class="left-section">
       <!-- Original Buttons -->
-      <button class="taskbar-btn" aria-label="Profile">Profile</button>
-      <button class="taskbar-btn" aria-label="Logout">Logout</button>
+      <button class="taskbar-btn" aria-label="Profile">{{ session['user'] if 'user' in session else 'Guest' }}</button>
+      <button class="taskbar-btn" aria-label="Logout" onclick="window.location.href='http://127.0.0.1:5000/auth/'">Logout</button>
     </div>
     <div class="right-section">
       <span>Sync with Bot:</span>
