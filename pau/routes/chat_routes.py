@@ -11,39 +11,47 @@ from datetime import datetime
 chat_bp = Blueprint("chat", __name__, template_folder="templates")
 NOTES_API_URL = "http://127.0.0.1:5000/notes/get"
 
+def get_user_chat_file():
+    """Return chat history file path for the logged-in user."""
+    username = session.get("user")
+    if not username:
+        return None  # No user logged in
+    return os.path.join(Config.LOG_DIR, f"{username}_chat.json")
+
 def load_history():
-    """Load the chat history from the JSON file specified in Config."""
-    if os.path.exists(Config.CHAT_HISTORY_FILE):
-        with open(Config.CHAT_HISTORY_FILE, "r") as f:
+    """Load user-specific chat history from JSON."""
+    chat_file = get_user_chat_file()
+    if not chat_file:
+        return []
+    
+    if not os.path.exists(chat_file):
+        return []  # No chat history yet
+
+    try:
+        with open(chat_file, "r", encoding="utf-8") as f:
             return json.load(f)
-    return []
+    except json.JSONDecodeError:
+        return []  # Handle corrupted files
 
 def save_history(history):
-    """Save the updated chat history to the JSON file."""
-    os.makedirs(Config.LOG_DIR, exist_ok=True)
-    with open(Config.CHAT_HISTORY_FILE, "w") as f:
+    """Save user-specific chat history."""
+    chat_file = get_user_chat_file()
+    if not chat_file:
+        return False
+
+    os.makedirs(Config.LOG_DIR, exist_ok=True)  # Ensure log directory exists
+    with open(chat_file, "w", encoding="utf-8") as f:
         json.dump(history, f, indent=4)
+    return True
 
 def get_relevant_notes(user_input):
     """Fetch notes from API and find relevant topics based on user input."""
     try:
-        response = requests.get(NOTES_API_URL)
-        if response.status_code != 200:
-            return []
-        all_notes = response.json()
+        response = requests.get(f"{NOTES_API_URL}?keyword={user_input}")
+        return response.json() if response.status_code == 200 else []
     except Exception as e:
         print("Error fetching notes:", e)
         return []
-
-    relevant_notes = []
-    keywords = set(user_input.lower().split())
-
-    for note in all_notes:
-        note_content = note.get("content", "").lower()
-        if any(keyword in note_content for keyword in keywords):
-            relevant_notes.append(note)
-
-    return relevant_notes[:3]  # Limit to top 3 notes
 
 def build_messages(history, notes):
     """
@@ -56,6 +64,7 @@ def build_messages(history, notes):
         messages.insert(0, {"role": "system", "content": f"User notes:\n{note_content}"})
 
     return messages
+
 def query_openai(history, notes):
     """
     Send the full conversation history as context to OpenAI’s API.
@@ -76,15 +85,12 @@ def query_openai(history, notes):
     }
     try:
         response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
-        if response.ok:
-            data = response.json()
-            # Assuming a response format: { "choices": [ { "message": { "content": "..." } } ] }
-            return data["choices"][0]["message"]["content"]
-        else:
-            return f"API Error: {response.status_code} - {response.text}"
-    except Exception as e:
-        print("Exception:", e)
-        return "Sorry, an exception occurred."
+        response.raise_for_status()  # Raise an exception for HTTP errors (400, 500, etc.)
+        data = response.json()
+        return data["choices"][0]["message"]["content"]
+    except requests.exceptions.RequestException as e:
+        print(f"OpenAI API Error: {e}")
+        return "Sorry, the assistant is currently unavailable."
 
 @chat_bp.route("/chat", methods=["GET"])
 def chat_page():
@@ -101,6 +107,9 @@ def chat():
     It updates the chat history, queries LM Studio with the full context,
     and returns the bot’s response.
     """
+    if "user" not in session:
+        return jsonify({"error": "User not logged in"}), 401  # Unauthorized
+    
     data = request.get_json()
     if not data or "message" not in data:
         return jsonify({"error": "Missing 'message' parameter in JSON payload"}), 400

@@ -1,26 +1,51 @@
 import os
 import json
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, session
 from datetime import datetime
 
 notes_bp = Blueprint("notes", __name__)
 
 NOTES_DIR = "data/notes"
-NOTES_FILE = os.path.join(NOTES_DIR, "notes.json")
+os.makedirs(NOTES_DIR, exist_ok=True)  # Ensure the notes directory exists
 
-# Ensure directory exists
-if not os.path.exists(NOTES_DIR):
-    os.makedirs(NOTES_DIR)
+def get_user_notes_file():
+    """Returns the file path for the logged-in user's notes."""
+    username = session.get("user")
+    if not username:
+        return None  # No user logged in
+    return os.path.join(NOTES_DIR, f"{username}_notes.json")
 
-# Ensure file exists
-if not os.path.exists(NOTES_FILE):
-    with open(NOTES_FILE, "w") as f:
-        json.dump([], f)
+def load_notes():
+    """Load notes from the user's specific JSON file."""
+    user_file = get_user_notes_file()
+    if not user_file:
+        return []
+    
+    if not os.path.exists(user_file):
+        return []  # No notes exist for this user
 
+    try:
+        with open(user_file, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        return []  # Handle corrupted JSON files
+
+def save_notes(notes):
+    """Save notes to the user's specific JSON file."""
+    user_file = get_user_notes_file()
+    if not user_file:
+        return False
+
+    with open(user_file, "w", encoding="utf-8") as f:
+        json.dump(notes, f, indent=4)
+    return True
 
 # Route to save a note
 @notes_bp.route("/save", methods=["POST"])
 def save_note():
+    if "user" not in session:
+        return jsonify({"error": "User not logged in"}), 401
+
     data = request.json
     note = {
         "id": data.get("id"),
@@ -29,47 +54,49 @@ def save_note():
         "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
 
-    with open(NOTES_FILE, "r+") as f:
-        notes = json.load(f)
-        notes.append(note)
-        f.seek(0)
-        json.dump(notes, f, indent=4)
-
-    return jsonify({"success": True})
-
+    notes = load_notes()
+    notes.append(note)
+    if save_notes(notes):
+        return jsonify({"success": True})
+    return jsonify({"error": "Failed to save note"}), 500
 
 # Route to get all notes
 @notes_bp.route("/get", methods=["GET"])
 def get_notes():
-    with open(NOTES_FILE, "r") as f:
-        notes = json.load(f)
-    return jsonify(notes)
+    if "user" not in session:
+        return jsonify({"error": "User not logged in"}), 401
 
+    keyword = request.args.get("keyword", "").lower()  # Get keyword from query params
+    notes = load_notes()
+
+    if keyword:
+        notes = [note for note in notes if keyword in note.get("content", "").lower()]
+
+    return jsonify(notes)
 
 # Route to delete selected notes
 @notes_bp.route("/delete", methods=["POST"])
 def delete_notes():
+    if "user" not in session:
+        return jsonify({"error": "User not logged in"}), 401
+
     data = request.json
     ids_to_delete = set(data.get("ids", []))
 
-    with open(NOTES_FILE, "r+") as f:
-        notes = json.load(f)
-        notes = [note for note in notes if str(note["id"]) not in ids_to_delete]
-        f.seek(0)
-        f.truncate()
-        json.dump(notes, f, indent=4)
-
-    return jsonify({"success": True})
+    notes = [note for note in load_notes() if str(note["id"]) not in ids_to_delete]
+    if save_notes(notes):
+        return jsonify({"success": True})
+    return jsonify({"error": "Failed to delete notes"}), 500
 
 
 # Route to open selected notes
 @notes_bp.route("/open", methods=["POST"])
 def open_notes():
+    if "user" not in session:
+        return jsonify({"error": "User not logged in"}), 401
+
     data = request.json
-    ids_to_open = set(map(str, data.get("ids", [])))  # Convert IDs to string
+    ids_to_open = set(map(str, data.get("ids", [])))
 
-    with open(NOTES_FILE, "r") as f:
-        notes = json.load(f)
-        selected_notes = [note for note in notes if str(note["id"]) in ids_to_open]
-
+    selected_notes = [note for note in load_notes() if str(note["id"]) in ids_to_open]
     return jsonify(selected_notes)

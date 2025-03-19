@@ -58,23 +58,27 @@ def register():
 def login():
     username = request.form['username']
     password = request.form['password']
-    
+
+    print(f"🔹 Received login request: {username} / {password}")  # Debug log
+
     success, message = login_checker(username, password)
     
     if success:
         session['user'] = username
-        return redirect(url_for('chat.chat_page'))
+        print(f"✅ Login successful for {username}")  # Debug log
+        return redirect(url_for('auth.dashboard'))
     else:
+        print(f"❌ Login failed for {username}: {message}")  # Debug log
         flash(message, 'danger')
         return redirect(url_for('auth.home'))
 
 @auth_bp.route('/dashboard')
 def dashboard():
-    if 'user' in session:
-        return f"Welcome {session['user']}! You are logged in."
-    else:
+    if 'user' not in session:
         flash("Please log in first.", 'warning')
         return redirect(url_for('auth.home'))
+    
+    return render_template("chat.html", username=session['user'])
     
 @auth_bp.route('/forgot-password', methods=['GET', 'POST'])
 def forgot_password():

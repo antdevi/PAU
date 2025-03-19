@@ -1,24 +1,3 @@
 [
-    {
-        "id": 1741158285479,
-        "title": "TO DO LIST Today",
-        "content": "1) AWS Cloud Certification preparation for 1 hrs\n\n2) Developing the PAU application"
-    },
-    {
-        "id": 1741163801748,
-        "title": "AWS Solution Architecture Certification Preparation",
-        "content": "1) This week I will finish AWS Cloud Practioner\n2)3weeks I will study for the certification \n3)I will also practice question on the certification exam"
-    },
-    {
-        "id": 1741327307426,
-        "title": "Introduction to Cloud Computing",
-        "content": "Servers are like computer they are used to run a heavy duty work.\n\ncloud is a remote infrastructure computing is compute resources.\n\nIAM Resources : Identity and Access Management, global services, two types of account root and user, groups are created to have same type of access, json documents give policies and group.",
-        "date": "2025-03-07 11:31:47"
-    },
-    {
-        "id": 1741581213306,
-        "title": "AWS IAM",
-        "content": "Identity and Access Management, global services, two types of account root and user, groups are created to have same type of access, json documents give policies and group.\n\nPolicies: We can make policies on how to and what to give access to\n\nRoles: Some AWS Services will need to perform action on your behalf that is an example of allocating roles, permissions on AWS services\n\nIAM Security Tools: \n1) IAM Credentials Reports (Account level)\n2) IAM access advisor (user level)",
-        "date": "2025-03-10 10:03:33"
-    }
+    
 ]
