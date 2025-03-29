@@ -24,69 +24,67 @@ document.addEventListener("DOMContentLoaded", function() {
     const chatbox = document.getElementById("chatbox");
     const messageDiv = document.createElement("div");
     messageDiv.className = "message " + sender; // e.g., "message user" or "message bot"
-    messageDiv.innerHTML = marked.parse(message);
+    messageDiv.innerHTML = `<b>${sender}:</b> ${message.replace(/\n/g, "<br>")}`; // ✅ Preserve new lines
     chatbox.appendChild(messageDiv);
-  
     // Auto-scroll to the bottom of the chatbox.
     chatbox.scrollTop = chatbox.scrollHeight;
   }
-  
-  // Send the user's message to the LM Studio endpoint via the chatbot route.
-  function sendMessage() {
+  function clearChat() {
+    fetch("/chat/clear", { method: "POST" })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById("chatbox").innerHTML = ""; // Clear chatbox
+            }
+        })
+        .catch(error => console.error("Error clearing chat:", error));
+}
+  function loadChatHistory() {
+    fetch("/chat/history")
+        .then(response => response.json())
+        .then(history => {
+            let chatBox = document.getElementById("chatbox");
+            chatBox.innerHTML = "";
+            history.forEach(msg => {
+                let sender = msg.role === "user" ? "You" : "PAU";
+                chatBox.innerHTML += `<p><b>${sender}:</b> ${msg.message}</p>`;
+            });
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+}
+
+// Ensure chat history loads when the chat page opens
+document.addEventListener("DOMContentLoaded", function () {
+    loadChatHistory();
+});
+function sendMessage() {
     const inputField = document.getElementById("userInput");
     const message = inputField.value.trim();
-    if (message === "") return; // Do nothing if the input is empty.
-  
-    // Append the user's message to the chatbox.
-    appendMessage("user", message);
-  
-    // Clear the input field.
+    if (message === "") return;
+
+    appendMessage("user", message);  // Show user message immediately
     inputField.value = "";
-  
-    // Append a temporary message indicating that the bot is typing.
-    const chatbox = document.getElementById("chatbox");
-    const typingMessage = document.createElement("div");
-    typingMessage.className = "message bot";
-    typingMessage.id = "typingIndicator"; // Add an ID to remove later
-    typingMessage.textContent = "Bot is typing...";
-    chatbox.appendChild(typingMessage);
-  
-    // Auto-scroll to the bottom.
-    chatbox.scrollTop = chatbox.scrollHeight;
 
-    // Adjust the URL if your blueprint URL prefix differs.
     fetch("/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ message: message })
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: message })
     })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then(data => {
-        // Remove the temporary "Bot is typing..." message.
-        const typingIndicator = document.getElementById("typingIndicator");
-        if (typingIndicator) {
-          typingIndicator.remove();
-      }
-        // Append the bot's actual response.
+    .then(response => response.json())
+    .then(data => {
         appendMessage("bot", data.response);
-      })
-      .catch(error => {
-        console.error("Error:", error);
 
-        // ✅ Replace "Bot is typing..." with an error message if the request fails.
-        const typingIndicator = document.getElementById("typingIndicator");
-        if (typingIndicator) {
-            typingIndicator.textContent = "Error: Could not get response.";
+        // ✅ Show notes in chat
+        if (data.notes && data.notes.length > 0) {
+            appendMessage("bot", `🔍 **Relevant Notes:**\n${data.notes.map(n => `📌 ${n.title}: ${n.content}`).join("\n")}`);
         }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        appendMessage("bot", "Error: Could not get response.");
     });
 }
+
   function openTab(tabName) {
     // Hide all tab content sections
     let tabContents = document.querySelectorAll(".tab-content");

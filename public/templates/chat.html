@@ -18,6 +18,7 @@
       <!-- Original Buttons -->
       <button class="taskbar-btn" aria-label="Profile">{{ session['user'] if 'user' in session else 'Guest' }}</button>
       <button class="taskbar-btn" aria-label="Logout" onclick="window.location.href='http://127.0.0.1:5000/auth/'">Logout</button>
+      <button id="clearChatButton" class="logout-btn" onclick="clearChat()">Clear Chat</button>
     </div>
     <div class="right-section">
       <span>Sync with Bot:</span>

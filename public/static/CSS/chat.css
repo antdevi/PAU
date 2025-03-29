@@ -131,6 +131,29 @@
     padding: 10px;
     background-color: #222;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+/* ✅ Style Messages */
+.message {
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px;
+    max-width: 80%;
+}
+
+.user {
+    background-color: #007bff;
+    color: white;
+    align-self: flex-end;
+    text-align: right;
+}
+
+.bot {
+    background-color: #333;
+    color: white;
+    align-self: flex-start;
+    text-align: left;
 }
 
 /* ✅ Chat Input Box and Send Button */

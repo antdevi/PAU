@@ -11,12 +11,15 @@ from datetime import datetime
 chat_bp = Blueprint("chat", __name__, template_folder="templates")
 NOTES_API_URL = "http://127.0.0.1:5000/notes/get"
 
+CHAT_HISTORY_DIR = "logs/chats"
+os.makedirs(CHAT_HISTORY_DIR, exist_ok=True)  # Ensure the directory exists
+
 def get_user_chat_file():
     """Return chat history file path for the logged-in user."""
     username = session.get("user")
     if not username:
         return None  # No user logged in
-    return os.path.join(Config.LOG_DIR, f"{username}_chat.json")
+    return os.path.join(CHAT_HISTORY_DIR, f"{username}_chat.json")
 
 def load_history():
     """Load user-specific chat history from JSON."""
@@ -38,19 +41,20 @@ def save_history(history):
     chat_file = get_user_chat_file()
     if not chat_file:
         return False
-
-    os.makedirs(Config.LOG_DIR, exist_ok=True)  # Ensure log directory exists
+    
     with open(chat_file, "w", encoding="utf-8") as f:
         json.dump(history, f, indent=4)
     return True
 
 def get_relevant_notes(user_input):
-    """Fetch notes from API and find relevant topics based on user input."""
+    """Fetch only relevant notes based on user input keywords."""
     try:
         response = requests.get(f"{NOTES_API_URL}?keyword={user_input}")
-        return response.json() if response.status_code == 200 else []
+        notes = response.json() if response.status_code == 200 else []
+        print(f"🔍 Retrieved Notes: {notes}")  # ✅ Debugging: Check if notes are retrieved
+        return notes
     except Exception as e:
-        print("Error fetching notes:", e)
+        print("❌ Error fetching notes:", e)
         return []
 
 def build_messages(history, notes):
@@ -78,19 +82,38 @@ def query_openai(history, notes):
         "Authorization": f"Bearer {openai_api_key}",
         }
     
-    messages = build_messages(history, notes)
+    # Convert notes into a system message
+    if notes:
+        note_content = "\n".join([f"{note['title']}: {note['content']}" for note in notes])
+        system_message = {
+            "role": "system",
+            "content": f"Here are the user's important notes:\n{note_content}\n\nUse this information to answer any related queries."
+        }
+    else:
+        system_message = {
+            "role": "system",
+            "content": "No relevant notes found. Answer normally."
+        }
+    # Build message history
+    messages = [system_message]  # Start with system message
+    messages += [{"role": item["role"], "content": item["message"]} for item in history]
+
+    print(f"📨 Sending Messages to OpenAI: {messages}")
+
     payload = {
         "model": "gpt-4o-mini",
         "messages": messages
     }
     try:
         response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
-        response.raise_for_status()  # Raise an exception for HTTP errors (400, 500, etc.)
-        data = response.json()
-        return data["choices"][0]["message"]["content"]
-    except requests.exceptions.RequestException as e:
-        print(f"OpenAI API Error: {e}")
-        return "Sorry, the assistant is currently unavailable."
+        if response.ok:
+            data = response.json()
+            return data["choices"][0]["message"]["content"]
+        else:
+            return f"API Error: {response.status_code} - {response.text}"
+    except Exception as e:
+        print("❌ OpenAI Error:", e)
+        return "Sorry, an error occurred."
 
 @chat_bp.route("/chat", methods=["GET"])
 def chat_page():
@@ -100,15 +123,23 @@ def chat_page():
         return redirect(url_for("auth.home"))  # Redirect to login if not authenticated
     return render_template("chat.html")
 
+@chat_bp.route("/chat/clear", methods=["POST"])
+def clear_chat():
+    """Clears chat history for the logged-in user."""
+    if "user" not in session:
+        return jsonify({"error": "User not logged in"}), 401
+
+    chat_file = get_user_chat_file()
+    if chat_file and os.path.exists(chat_file):
+        open(chat_file, "w").close()  # Clear file contents
+
+    return jsonify({"success": True})
+
 @chat_bp.route("/chat", methods=["POST"])
 def chat():
-    """
-    Chat route that receives a JSON payload with a "message" key.
-    It updates the chat history, queries LM Studio with the full context,
-    and returns the bot’s response.
-    """
+    """Chat route that includes relevant notes in the response context."""
     if "user" not in session:
-        return jsonify({"error": "User not logged in"}), 401  # Unauthorized
+        return jsonify({"error": "User not logged in"}), 401
     
     data = request.get_json()
     if not data or "message" not in data:
@@ -135,4 +166,4 @@ def chat():
     # Save the updated chat history
     save_history(history)
 
-    return jsonify({"response": bot_response, "format": "markdown"})
+    return jsonify({"response": bot_response, "history": history, "format": "markdown"})
