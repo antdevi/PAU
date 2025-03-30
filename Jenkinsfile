@@ -2,18 +2,19 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'pau-app'
-        CONTAINER_NAME = 'pau'
+        IMAGE_NAME = 'pau-flask-app'
+        CONTAINER_NAME = 'loving_johnson'
         PORT = '5000'
     }
 
     stages {
         stage('Prepare') {
-    steps {
-        echo "Code checked out by Jenkins SCM."
-        sh 'ls -l'
-    }
-}
+            steps {
+                echo "Code checked out by Jenkins SCM."
+                sh 'ls -l'
+            }
+        }
+
         stage('Stop and Remove Old Container') {
             steps {
                 script {
@@ -27,7 +28,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t ${IMAGE_NAME} .'
+                sh 'docker build -t ${IMAGE_NAME} ./docker'
             }
         }
 
