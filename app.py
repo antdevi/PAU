@@ -1,5 +1,6 @@
 # app.py
 import logging
+from openai import OpenAI
 from  pau import create_app # Adjust the import based on your package structure
 from flask import Flask, render_template
 import os
@@ -7,6 +8,9 @@ import os
 app = create_app()
 
 app.secret_key = os.urandom(24)
+
+openai_api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=openai_api_key)
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)

@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        OPENAI_API_KEY = credentials('openai-api-key')
         IMAGE_NAME = 'pau-flask-app'
         CONTAINER_NAME = 'silly_bassi'
         PORT = '5000'
@@ -12,7 +13,6 @@ pipeline {
             steps {
                 echo "Code checked out by Jenkins SCM."
                 sh 'ls -l'
-                sh 'cat .env || echo ".env not found!"'
             }
         }
 
@@ -35,7 +35,7 @@ pipeline {
 
         stage('Run Docker Container') {
             steps {
-                sh 'docker run -d --name ${CONTAINER_NAME} -p ${PORT}:${PORT} --env-file .env ${IMAGE_NAME}'
+                sh 'docker run -d --name ${CONTAINER_NAME} -p ${PORT}:${PORT} -e OPENAI_API_KEY=${OPENAI_API_KEY} ${IMAGE_NAME}'
             }
         }
     }
