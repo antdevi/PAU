@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'pau-flask-app'
-        CONTAINER_NAME = 'loving_johnson'
+        CONTAINER_NAME = 'silly_bassi'
         PORT = '5000'
     }
 
