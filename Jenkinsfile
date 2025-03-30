@@ -12,6 +12,7 @@ pipeline {
             steps {
                 echo "Code checked out by Jenkins SCM."
                 sh 'ls -l'
+                sh 'cat .env || echo ".env not found!"'
             }
         }
 
