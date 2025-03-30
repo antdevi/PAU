@@ -34,7 +34,7 @@ pipeline {
 
         stage('Run Docker Container') {
             steps {
-                sh 'docker run -d --name ${CONTAINER_NAME} -p ${PORT}:${PORT} ${IMAGE_NAME}'
+                sh 'docker run -d --name ${CONTAINER_NAME} -p ${PORT}:${PORT} --env-file .env ${IMAGE_NAME}'
             }
         }
     }
