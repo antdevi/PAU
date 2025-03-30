@@ -8,12 +8,12 @@ pipeline {
     }
 
     stages {
-        stage('Clone GitHub Repo') {
-            steps {
-                git credentialsId: 'github-pat', url: 'https://github.com/antdevi/PAU.git'
-            }
-        }
-
+        stage('Prepare') {
+    steps {
+        echo "Code checked out by Jenkins SCM."
+        sh 'ls -l'
+    }
+}
         stage('Stop and Remove Old Container') {
             steps {
                 script {
