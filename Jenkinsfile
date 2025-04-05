@@ -7,8 +7,7 @@ pipeline {
         CONTAINER_NAME = 'silly_bassi'
         PORT = '5000'
         EC2_IP = '13.126.149.202'
-        REMOTE_USER = 'ec2-user'
-        PEM_FILE_NAME = 'ec2-key.pem' // Use the actual file name of your PEM key
+        PEM_FILE_NAME = 'cicdpipeline.pem' // Use the actual file name of your PEM key
     }
 
     stages {
