@@ -55,14 +55,15 @@ pipeline {
                             docker run -d --name ${CONTAINER_NAME} -p ${PORT}:${PORT} -e OPENAI_API_KEY=${OPENAI_API_KEY} ${IMAGE_NAME}
                         EOF
                         """         
+                    }
                 }
             }
         }
-    }
 
     post {
         always {
             echo 'Cleanup, report, or notify if needed.'
         }
     }
-}}
+    }
+}
