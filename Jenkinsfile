@@ -6,7 +6,9 @@ pipeline {
         IMAGE_NAME = 'pau-flask-app'
         CONTAINER_NAME = 'silly_bassi'
         PORT = '5000'
-        EC2_HOST = 'ec2-user@<YOUR_EC2_PUBLIC_IP>' // Replace with real IP
+        EC2_IP = '13.126.149.202'
+        REMOTE_USER = 'ec2-user'
+        PEM_FILE_NAME = 'ec2-key.pem' // Use the actual file name of your PEM key
     }
 
     stages {
@@ -32,22 +34,26 @@ pipeline {
             }
         }
 
-        stage('Run Docker Container') {
+        stage('Run Docker Locally') {
             steps {
                 sh 'docker run -d --name $CONTAINER_NAME -p $PORT:$PORT -e OPENAI_API_KEY=$OPENAI_API_KEY $IMAGE_NAME'
             }
         }
 
-        stage('Save and Transfer Image to EC2') {
+        stage('Save and Deploy to EC2') {
             steps {
-                script {
-                    def tarFile = "${env.IMAGE_NAME}.tar"
-                    sh "docker save -o ${tarFile} ${env.IMAGE_NAME}"
-                    
-                    sshagent (credentials: ['ec2-ssh']) {
+                withCredentials([file(credentialsId: 'ec2-pem-key', variable: 'EC2_PEM')]) {
+                    script {
+                        def tarFile = "${env.IMAGE_NAME}.tar"
                         sh """
-                            scp -o StrictHostKeyChecking=no ${tarFile} ${env.EC2_HOST}:/home/ec2-user/
-                            ssh -o StrictHostKeyChecking=no ${env.EC2_HOST} << 'EOF'
+                            echo 'Saving Docker image as TAR...'
+                            docker save -o ${tarFile} ${IMAGE_NAME}
+
+                            echo 'Transferring Docker image to EC2...'
+                            scp -o StrictHostKeyChecking=no -i $EC2_PEM ${tarFile} ${REMOTE_USER}@${EC2_IP}:/home/${REMOTE_USER}/
+
+                            echo 'Deploying on EC2...'
+                            ssh -o StrictHostKeyChecking=no -i $EC2_PEM ${REMOTE_USER}@${EC2_IP} << 'EOF'
                                 docker ps -q --filter "name=${CONTAINER_NAME}" | grep -q . && docker stop ${CONTAINER_NAME} || echo "No container running"
                                 docker ps -a -q --filter "name=${CONTAINER_NAME}" | grep -q . && docker rm ${CONTAINER_NAME} || echo "No container to remove"
                                 docker load -i ${IMAGE_NAME}.tar
@@ -62,7 +68,7 @@ pipeline {
 
     post {
         always {
-            echo 'Cleanup, report, or notify if needed.'
+            echo 'Pipeline complete. Clean up or notify if needed.'
         }
     }
 }
