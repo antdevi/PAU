@@ -7,7 +7,6 @@ pipeline {
         CONTAINER_NAME = 'silly_bassi'
         PORT = '5000'
         EC2_IP = '13.126.149.202'
-        PEM_FILE_NAME = 'cicdpipeline.pem' // Use the actual file name of your PEM key
     }
 
     stages {
@@ -41,7 +40,14 @@ pipeline {
 
         stage('Save and Deploy to EC2') {
             steps {
-                withCredentials([file(credentialsId: 'ec2-pem-key', variable: 'EC2_PEM')]) {
+                withCredentials([
+                    sshUserPrivateKey(
+                        credentialsId: 'ec2-pem-key',
+                        keyFileVariable: 'EC2_PEM',
+                        usernameVariable: 'REMOTE_USER'
+                    ),
+                    string(credentialsId: 'openai-api-key', variable: 'OPENAI_API_KEY')
+                ]) {
                     script {
                         def tarFile = "${env.IMAGE_NAME}.tar"
                         sh """
@@ -49,14 +55,15 @@ pipeline {
                             docker save -o ${tarFile} ${IMAGE_NAME}
 
                             echo 'Transferring Docker image to EC2...'
-                            scp -o StrictHostKeyChecking=no -i $EC2_PEM ${tarFile} ${REMOTE_USER}@${EC2_IP}:/home/${REMOTE_USER}/
+                            scp -o StrictHostKeyChecking=no -i $EC2_PEM ${tarFile} $REMOTE_USER@${EC2_IP}:/home/$REMOTE_USER/
 
                             echo 'Deploying on EC2...'
-                            ssh -o StrictHostKeyChecking=no -i $EC2_PEM ${REMOTE_USER}@${EC2_IP} << 'EOF'
+                            ssh -o StrictHostKeyChecking=no -i $EC2_PEM $REMOTE_USER@${EC2_IP} << EOF
+                                export OPENAI_API_KEY=${OPENAI_API_KEY}
                                 docker ps -q --filter "name=${CONTAINER_NAME}" | grep -q . && docker stop ${CONTAINER_NAME} || echo "No container running"
                                 docker ps -a -q --filter "name=${CONTAINER_NAME}" | grep -q . && docker rm ${CONTAINER_NAME} || echo "No container to remove"
                                 docker load -i ${IMAGE_NAME}.tar
-                                docker run -d --name ${CONTAINER_NAME} -p ${PORT}:${PORT} -e OPENAI_API_KEY=${OPENAI_API_KEY} ${IMAGE_NAME}
+                                docker run -d --name ${CONTAINER_NAME} -p ${PORT}:${PORT} -e OPENAI_API_KEY=\$OPENAI_API_KEY ${IMAGE_NAME}
                             EOF
                         """
                     }
