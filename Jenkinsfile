@@ -20,16 +20,17 @@ pipeline {
             }
         }
 
-        stage('Stop Existing Container (if running)') {
-            steps {
-                bat '''
-                FOR /F "tokens=*" %%i IN ('docker ps -q -f "name=%CONTAINER_NAME%"') DO (
-                    docker stop %%i
-                    docker rm %%i
-                )
-                '''
-            }
+    stage('Stop Existing Container (if running)') {
+        steps {
+            bat '''
+            FOR /F "tokens=*" %%i IN ('docker ps -q -f "name=%CONTAINER_NAME%"') DO (
+                docker stop %%i
+                docker rm %%i
+            )
+            exit 0
+            '''
         }
+    }
 
         stage('Run Docker Container with secret') {
             steps {
