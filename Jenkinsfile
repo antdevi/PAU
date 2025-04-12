@@ -23,7 +23,7 @@ pipeline {
         stage('Stop Existing Container (if running)') {
             steps {
                 bat '''
-                FOR /F "tokens=*" %%i IN ('docker ps -q -f "name=%CONTAINER_NAME%"') DO (
+                FOR /F "tokens=*" %%i IN ('docker ps -q -f "name=pau-container"') DO (
                     docker stop %%i
                     docker rm %%i
                 )
@@ -31,11 +31,12 @@ pipeline {
             }
         }
 
-        stage('Run Docker Container with .env') {
+        stage('Run Docker Container with secret') {
             steps {
                 bat 'docker run -d -e OPENAI_API_KEY=%OPENAI_API_KEY% -p 5000:5000 --name %CONTAINER_NAME% %IMAGE_NAME%'
             }
         }
+
     }
 
     post {
