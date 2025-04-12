@@ -4,7 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = "pau-app"
         CONTAINER_NAME = "pau-container"
-        OPENAI_API_KEY = credentials('OpenAIKey')
+        OPENAI_API_KEY = credentials('openai-key')  // injected securely
     }
 
     stages {
@@ -23,7 +23,7 @@ pipeline {
         stage('Stop Existing Container (if running)') {
             steps {
                 bat '''
-                FOR /F "tokens=*" %%i IN ('docker ps -q -f "name=pau-container"') DO (
+                FOR /F "tokens=*" %%i IN ('docker ps -q -f "name=%CONTAINER_NAME%"') DO (
                     docker stop %%i
                     docker rm %%i
                 )
@@ -36,7 +36,6 @@ pipeline {
                 bat 'docker run -d -e OPENAI_API_KEY=%OPENAI_API_KEY% -p 5000:5000 --name %CONTAINER_NAME% %IMAGE_NAME%'
             }
         }
-
     }
 
     post {
