@@ -4,7 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = "pau-app"
         CONTAINER_NAME = "pau-container"
-        OPENAI_API_KEY = credentials('openai-key')
+        OPENAI_API_KEY = credentials('OpenAIKey')
     }
 
     stages {
