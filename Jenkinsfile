@@ -4,7 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = "pau-app"
         CONTAINER_NAME = "pau-container"
-        ENV_FILE = ".env"
+        OPENAI_API_KEY = credentials('openai-key')
     }
 
     stages {
@@ -33,7 +33,7 @@ pipeline {
 
         stage('Run Docker Container with .env') {
             steps {
-                bat 'docker run -d --env-file %ENV_FILE% -p 5000:5000 --name %CONTAINER_NAME% %IMAGE_NAME%'
+                bat 'docker run -d -e OPENAI_API_KEY=%OPENAI_API_KEY% -p 5000:5000 --name %CONTAINER_NAME% %IMAGE_NAME%'
             }
         }
     }
