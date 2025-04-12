@@ -16,7 +16,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t $IMAGE_NAME -f docker/Dockerfile .'
+                bat 'docker build -t %IMAGE_NAME% -f docker/Dockerfile .'
             }
         }
 
@@ -24,7 +24,7 @@ pipeline {
             steps {
                 bat '''
                 if [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
-                  docker stop $CONTAINER_NAME && docker rm $CONTAINER_NAME
+                  docker stop %CONTAINER_NAME% && docker rm %CONTAINER_NAME%
                 fi
                 '''
             }
@@ -32,7 +32,7 @@ pipeline {
 
         stage('Run Docker Container with .env') {
             steps {
-                bat 'docker run -d -e OPENAI_API_KEY=$OPENAI_API_KEY -p 5000:5000 --name $CONTAINER_NAME $IMAGE_NAME'
+                bat 'docker run -d -e OPENAI_API_KEY=$OPENAI_API_KEY -p 5000:5000 --name %CONTAINER_NAME% %IMAGE_NAME%'
             }
         }
     }
