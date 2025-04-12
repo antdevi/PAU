@@ -23,7 +23,9 @@ pipeline {
     stage('Stop Existing Container (if running)') {
         steps {
             bat '''
-            FOR /F "tokens=*" %%i IN ('docker ps -q -f "name=%CONTAINER_NAME%"') DO (
+            echo Cleaning up existing container if it exists...
+
+            FOR /F "tokens=*" %%i IN ('docker ps -a -q -f "name=%CONTAINER_NAME%"') DO (
                 docker stop %%i
                 docker rm %%i
             )
