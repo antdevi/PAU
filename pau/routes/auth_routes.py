@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
+from werkzeug.security import generate_password_hash, check_password_hash
 import json
 import os
 from pau.services import ai_engine
@@ -21,7 +22,7 @@ def save_users(users):
 
 def login_checker(username, password):
     users = load_users()
-    if username in users and users[username]['password'] == password:
+    if username in users and check_password_hash(users[username]['password'], password):
         return True, "Login successful"
     return False, "Invalid username or password."
 
@@ -46,7 +47,10 @@ def register():
             flash("Username already taken!", 'danger')
             return redirect(url_for('auth.register'))
 
-        users[username] = {"password": password}
+        hashed_password = generate_password_hash(password, method = "pbkdf2:sha256", salt_length=16)
+        users[username] = {
+            'password': hashed_password
+        }
         save_users(users)
 
         flash("Account created successfully! Please log in.", 'success')

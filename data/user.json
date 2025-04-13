@@ -1,5 +1,5 @@
 {
-    "antaradas.work@gmail.com": {
-        "password": "Welcome@2121"
+    "devopsuser": {
+        "password": "pbkdf2:sha256:1000000$o30xd3RWPI3JiuAa$818b75ae91279cb2dda971545a90764f5f494e6ac96eca4886d8279b341460cc"
     }
 }
