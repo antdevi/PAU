@@ -87,17 +87,28 @@ def dashboard():
 @auth_bp.route('/forgot-password', methods=['GET', 'POST'])
 def forgot_password():
     if request.method == 'POST':
-        email = request.form['email']
+        username = request.form['username']
+        new_password = request.form['new_password']
+        confirm_password = request.form['confirm_password']
         users = load_users()
 
         # Check if email exists in database
-        if email in users:
+        if username not in users:
             # Send password reset email
-            flash(f"A password reset link has been sent to {email}", "success")
-            return redirect(url_for('auth.home'))
-        else:
-            flash("Email not found. Please check and try again.", "danger")
+            flash("Username does not exist.", "danger")
+            return redirect(url_for('auth.reset_password'))
+        
+        if new_password != confirm_password:
+            flash("Passwords do not match!", "warning")
+            return redirect(url_for('auth.reset_password'))
+        
+        # Hash the new password
+        hashed_password = generate_password_hash(new_password, method="pbkdf2:sha256", salt_length=16)
+        users[username]['password'] = hashed_password
+        save_users(users)
 
+        flash("Password reset successfully. Please log in.", "success")
+        return redirect(url_for('auth.home'))
     return render_template('forget_password.html')
 
 @auth_bp.route('/logout')
